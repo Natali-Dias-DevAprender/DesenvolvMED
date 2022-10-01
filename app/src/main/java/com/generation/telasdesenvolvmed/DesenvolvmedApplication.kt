@@ -1,4 +1,8 @@
 package com.generation.telasdesenvolvmed
 
-class DesenvolvmedApplication {
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class DesenvolvmedApplication : Application() {
 }
