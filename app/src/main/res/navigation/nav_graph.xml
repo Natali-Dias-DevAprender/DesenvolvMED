@@ -24,5 +24,19 @@
         <action
             android:id="@+id/action_postFragment_to_criarPostFragment"
             app:destination="@id/criarPostFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_criarComentarioFragment"
+            app:destination="@id/criarComentarioFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/criarComentarioFragment"
+        android:name="com.generation.telasdesenvolvmed.CriarComentarioFragment"
+        android:label="fragment_criar_comentario"
+        tools:layout="@layout/fragment_criar_comentario" >
+        <action
+            android:id="@+id/action_criarComentarioFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/postFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
