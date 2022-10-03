@@ -22,8 +22,8 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
     override fun onBindViewHolder(holder: PostagemViewHolder, position: Int) {
         val postagem = listPostagem[position]
 
-        holder.binding.temaPost.text = postagem.tema
-        holder.binding.nomeMedico.text = postagem.medico
+        holder.binding.temaPost.text = postagem.tema.tema
+        holder.binding.nomeMedico.text = postagem.medico.cadastro.nome
         holder.binding.tituloPost.text = postagem.titulo
         holder.binding.conteudoPost.text = postagem.conteudo
         holder.binding.linkAnexo.text = postagem.anexo

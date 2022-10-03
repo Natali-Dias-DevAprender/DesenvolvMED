@@ -11,7 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.generation.telasdesenvolvmed.adapter.PostagemAdapter
 import com.generation.telasdesenvolvmed.databinding.FragmentPostBinding
+import com.generation.telasdesenvolvmed.model.Cadastro
+import com.generation.telasdesenvolvmed.model.Medico
 import com.generation.telasdesenvolvmed.model.Postagem
+import com.generation.telasdesenvolvmed.model.Tema
 
 
 class PostFragment : Fragment() {
@@ -31,41 +34,25 @@ class PostFragment : Fragment() {
 
         val listPostagens = listOf(
             Postagem(
-                "Vacina",
-                "Dr. Gabriel",
-                "Bebam agua todos os dias",
-                "A agua é muito importante para a sua saude pois faz parte de 98% do seu organismo",
-                "https://imgur.com/vpVts7m"
-            ),
-            Postagem(
-                "Vacina",
-                "Dra. Gabriela",
-                "Bebam suco todos os dias",
-                "A suco é muito importante para a sua saude pois faz parte de 98% do seu organismo",
-                "https://imgur.com/vpVts7m"
-            ),
-            Postagem(
-                "Vacina",
-                "Dra. Samira",
-                "Bebam refrigerante todos os dias",
-                "A refrigerante é muito importante para a sua saude pois faz parte de 98% do seu organismo",
-                "https://imgur.com/vpVts7m"
-            ),
-            Postagem(
-                "Vacina",
-                "Dra. Natali",
-                "Bebam cerveja todos os dias",
+                2,
+                Tema(1, "Vacina", null ),
+                Medico(1, "CRM/SP 123546", Cadastro(1, "01754689720",
+                    "Joviraldo", "Robson", "2154154", "jovis@gmail.com",
+                    null ),null,),
+                "Cerveja",
                 "A cerveja é muito importante para a sua saude pois faz parte de 98% do seu organismo",
                 "https://imgur.com/vpVts7m"
             ),
             Postagem(
-                "Vacina",
-                "Dr. Murillo",
-                "Bebam sake todos os dias",
+                1,
+                Tema(1, "Vacina", null ),
+                Medico(1, "CRM/SP 123546", Cadastro(1, "01754689720",
+                    "Joviraldo", "Robson", "2154154", "jovis@gmail.com",
+                    null ),null,),
+                "Sake",
                 "A sake é muito importante para a sua saude pois faz parte de 98% do seu organismo",
                 "https://imgur.com/vpVts7m"
             ),
-
         )
 
         val postagemAdapter = PostagemAdapter()
