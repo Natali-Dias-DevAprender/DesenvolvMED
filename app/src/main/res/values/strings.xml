@@ -20,4 +20,15 @@
     <string name="bot_o_de_busca">Botão de Busca</string>
     <string name="bot_o_de_home">Botão de Home</string>
     <string name="botao_de_perfil">Botao de Perfil</string>
+    <string name="nome">Nome</string>
+    <string name="todo">TODO</string>
+    <string name="escolha_seu_perfil">Escolha seu perfil:</string>
+    <string name="confirmar_senha">Confirmar senha</string>
+    <string name="senha">Senha</string>
+    <string name="e_mail">E_mail</string>
+    <string name="cpf">CPF</string>
+    <string name="Nome">Nome</string>
+    <string name="todo2">TODO</string>
+    <string name="bem_vindo_nfa_a_seu_cadastro_para_continuar">Bem vindo! \nFaça seu cadastro para continuar.</string>
+    <string name="criar_conta">Criar Conta</string>
 </resources>
