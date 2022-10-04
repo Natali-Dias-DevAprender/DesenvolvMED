@@ -32,6 +32,10 @@ class PostFragment : Fragment() {
 
 		mainViewModel.listPostagem()
 
+		binding.swipeToRefresh.setOnRefreshListener {
+			mainViewModel.listPostagem()
+		}
+
 		val postagemAdapter = PostagemAdapter()
 		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
 		binding.recyclerPostagem.adapter = postagemAdapter
@@ -44,6 +48,7 @@ class PostFragment : Fragment() {
 		mainViewModel.myPostagemResponse.observe(viewLifecycleOwner) { response ->
 			if (response.body() != null) {
 				postagemAdapter.setList(response.body()!!)
+				binding.swipeToRefresh.isRefreshing = false
 			}
 		}
 

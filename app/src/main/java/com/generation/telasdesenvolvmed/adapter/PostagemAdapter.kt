@@ -24,7 +24,7 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
 		val postagem = listPostagem[position]
 
 		holder.binding.temaPost.text = postagem.tema.tema
-		holder.binding.nomeMedico.text = postagem.medico.cadastro.nome
+		holder.binding.nomeMedico.text = postagem.medico.cadastro!!.nome
 		holder.binding.tituloPost.text = postagem.titulo
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
