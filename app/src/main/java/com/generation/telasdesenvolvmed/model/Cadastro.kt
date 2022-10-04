@@ -1,7 +1,5 @@
 package com.generation.telasdesenvolvmed.model
 
-//MURILLO
-
 class Cadastro (
 	val id: Long,
 	val cpf: String,

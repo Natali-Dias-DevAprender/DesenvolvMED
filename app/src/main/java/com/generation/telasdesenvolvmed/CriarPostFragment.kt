@@ -1,6 +1,7 @@
 package com.generation.telasdesenvolvmed
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.generation.telasdesenvolvmed.databinding.FragmentCriarPostBinding
 import com.generation.telasdesenvolvmed.model.Cadastro
@@ -32,6 +34,13 @@ class CriarPostFragment : Fragment() {
 
 		//binding.dmToolbar.toolbarImg.drawable
 
+		mainViewModel.listTema()
+
+		mainViewModel.myTemaResponse.observe(viewLifecycleOwner) { response ->
+			Log.d("Requisicao", response.body().toString())
+			spinnerTema(response.body()!!)
+		}
+
 		binding.botaoPublicar.setOnClickListener {
 			inserirNoBanco()
 		}
@@ -41,9 +50,8 @@ class CriarPostFragment : Fragment() {
 
 	private fun spinnerTema(listaTema: List<Tema>) {
 
-		if (listaTema.isNullOrEmpty())
+		if (listaTema.isEmpty())
 			throw IllegalArgumentException("Lista vazia!")
-
 
 		binding.selecTemas.adapter =
 			ArrayAdapter(
@@ -68,9 +76,9 @@ class CriarPostFragment : Fragment() {
 
 	private fun validarCampos(titulo: String, conteudo: String, anexo: String): Boolean {
 		return (
-				(titulo.isNotBlank() || titulo.length in 20..255) &&
-						(conteudo.isNotBlank() || conteudo.length in 20..5000) &&
-						(anexo.isNotBlank() || anexo.length in 10..500)
+				(titulo.isNotBlank() && titulo.length in 20..255) &&
+						(conteudo.isNotBlank() && conteudo.length in 20..5000) &&
+						(anexo.isNotBlank() && anexo.length in 10..500)
 				)
 	}
 
@@ -80,14 +88,15 @@ class CriarPostFragment : Fragment() {
 		val conteudo = binding.postText.text.toString()
 		val anexo = binding.textAnexo.text.toString()
 		//val medico = binding.currentUser.medico.id
-		val medico = Medico(1, "CRM/SP 123546", Cadastro(1, "01754689720",
-				 "Joviraldo", "Robson", "2154154", "jovis@gmail.com", null ), null)
-		val data = LocalDateTime.now()
+		val medico = Medico(
+			1, null, null, null
+		)
+		val dataPostagem = LocalDateTime.now().toString()
 		val tema = Tema(temaSelecionado, null, null)
 
 		if (validarCampos(titulo, conteudo, anexo)) {
 
-			val postagem = Postagem(0, tema, medico, titulo, conteudo, anexo)
+			val postagem = Postagem(0, titulo, conteudo, anexo, dataPostagem, tema, medico)
 			mainViewModel.addPostagem(postagem)
 			Toast.makeText(context, "Postagem criada!", Toast.LENGTH_SHORT).show()
 			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)

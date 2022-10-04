@@ -2,10 +2,15 @@ package com.generation.telasdesenvolvmed.api
 
 import com.generation.telasdesenvolvmed.model.Comentario
 import com.generation.telasdesenvolvmed.model.Postagem
+import com.generation.telasdesenvolvmed.model.Tema
 import retrofit2.Response
 import retrofit2.Retrofit
 
 class Repository {
+
+    suspend fun listTema(): Response<List<Tema>> {
+        return RetrofitInstance.api.listTema()
+    }
 
     suspend fun listPostagem(): Response<List<Postagem>> {
         return RetrofitInstance.api.listPostagem()

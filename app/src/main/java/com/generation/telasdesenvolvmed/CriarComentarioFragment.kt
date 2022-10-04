@@ -11,30 +11,30 @@ import java.time.LocalDateTime
 
 class CriarComentarioFragment : Fragment() {
 
-    private lateinit var binding: FragmentCriarComentarioBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
+	private lateinit var binding: FragmentCriarComentarioBinding
+	private val mainViewModel: MainViewModel by activityViewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentCriarComentarioBinding.inflate(layoutInflater, container, false)
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?,
+		savedInstanceState: Bundle?
+	): View? {
+		// Inflate the layout for this fragment
+		binding = FragmentCriarComentarioBinding.inflate(layoutInflater, container, false)
 
+		return binding.root
+	}
 
+	private fun validarCampos(conteudo: String): Boolean {
+		return (
+				(conteudo.isNotBlank() || conteudo.length in 10..300)
+				)
+	}
 
-        return binding.root
-    }
+	/*private fun inserirNoBanco() {
 
-    private fun validarCampos(conteudo: String): Boolean{
-        return (
-                (conteudo.isNotBlank() || conteudo.length in 10..300)
-                )
-    }
-
-    private fun inserirNoBanco(){
-        val conteudo = binding.editConteudo.text.toString()
-        val data = LocalDateTime.now()
-    }
+		val conteudo = binding.editConteudo.text.toString()
+		val data = LocalDateTime.now()
+		val postagem = postagemId
+		val cadastro = currentUser
+	}*/
 }
-
