@@ -6,8 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-
-class CadastroFragment : Fragment() {
+class tela_de_apresentacaoFragment : Fragment() {
 
 
     override fun onCreateView(
@@ -15,7 +14,7 @@ class CadastroFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cadastro, container, false)
+        return inflater.inflate(R.layout.fragment_tela_de_apresentacao, container, false)
     }
 
 

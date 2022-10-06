@@ -103,7 +103,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="57dp"
                     android:hint="CPF"
-
                     android:textColorHint="#757575"
                     android:textSize="16sp" />
 
@@ -161,11 +160,13 @@
                                 android:id="@+id/id_escolha"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="32dp"
+                                android:layout_marginBottom="32dp"
                                 android:layout_weight="1"
                                 android:text="TextView"
-                                android:textSize="16sp"
+                                android:textSize="20dp"
 
-                                tools:text="escolha seu perfil:" />
+                                tools:text=" Escolha seu perfil:" />
 
                         </com.google.android.material.textfield.TextInputLayout>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -173,6 +174,39 @@
 
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radioButton"
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:text="Paciente" />
+
+                <RadioButton
+                    android:id="@+id/radioButton1"
+                    android:layout_width="173dp"
+                    android:layout_height="wrap_content"
+                    android:text="Médico" />
+
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="32dp"
+                android:layout_weight="1"
+                android:text="Cadastrar" />
+
+
+
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
