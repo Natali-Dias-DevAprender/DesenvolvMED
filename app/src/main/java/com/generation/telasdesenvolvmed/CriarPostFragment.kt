@@ -25,6 +25,10 @@ class CriarPostFragment : Fragment() {
             findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
         }
 
+        binding.botaoVoltarFeed.setOnClickListener {
+            findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
+        }
+
         return binding.root
     }
 

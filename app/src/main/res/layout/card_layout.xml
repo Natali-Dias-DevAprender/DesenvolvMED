@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardElevation="10dp">
+    android:layout_margin="15dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="6dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +14,39 @@
         android:orientation="vertical"
         android:padding="10dp">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginLeft="235dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <ImageView
+                android:id="@+id/botaoEditarPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_baseline_edit_24"
+                tools:ignore="ImageContrastCheck" />
+
+            <ImageView
+                android:id="@+id/botaoDeletarPost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+
+                app:srcCompat="@drawable/ic_baseline_delete_24"
+                tools:ignore="ImageContrastCheck" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/temaPost"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:textColor="#000000"
             tools:text="temaPostagem" />
 
@@ -37,31 +64,35 @@
             android:id="@+id/tituloPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="15dp"
             android:textColor="#000000"
             android:textSize="20sp"
             android:textStyle="bold"
             tools:text="Titulo da Postagem" />
 
         <TextView
-            android:id="@+id/conteudoPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="#000000"
-            tools:text="Conteudo da Postagem" />
-
-        <TextView
             android:id="@+id/linkAnexo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:textColor="#000000"
             tools:text="Link de Anexo" />
+
+        <TextView
+            android:id="@+id/conteudoPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:justificationMode="inter_word"
+            android:textColor="#000000"
+            tools:text="Conteudo da Postagem" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

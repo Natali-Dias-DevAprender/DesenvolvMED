@@ -26,7 +26,7 @@
         android:layout_height="42dp"
         android:layout_gravity="center"
         android:scaleType="centerInside"
-        app:srcCompat="@drawable/desenvolvmedlogo"
+        app:srcCompat="@drawable/logo"
         tools:text="Img" />
 
 </androidx.appcompat.widget.Toolbar>
