@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/postFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/criarPostFragment"
@@ -37,6 +37,32 @@
             android:id="@+id/action_criarComentarioFragment_to_postFragment"
             app:destination="@id/postFragment"
             app:popUpTo="@id/postFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.generation.telasdesenvolvmed.LoginFragment"
+        android:label="fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/postFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_esqueciSenhaFragment"
+            app:destination="@id/esqueciSenhaFragment"
+            app:popUpTo="@id/esqueciSenhaFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/esqueciSenhaFragment"
+        android:name="com.generation.telasdesenvolvmed.EsqueciSenhaFragment"
+        android:label="fragment_esqueci_senha"
+        tools:layout="@layout/fragment_esqueci_senha" >
+        <action
+            android:id="@+id/action_esqueciSenhaFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>
