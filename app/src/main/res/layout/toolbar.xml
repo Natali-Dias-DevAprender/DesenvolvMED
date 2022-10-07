@@ -24,6 +24,7 @@
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
         android:layout_width="match_parent"
         android:layout_height="42dp"
+        android:layout_marginRight="18dp"
         android:layout_gravity="center"
         android:scaleType="centerInside"
         app:srcCompat="@drawable/logo"

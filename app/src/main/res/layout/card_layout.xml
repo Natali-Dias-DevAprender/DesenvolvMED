@@ -94,5 +94,13 @@
             android:textColor="#000000"
             tools:text="Conteudo da Postagem" />
 
+        <Button
+            android:id="@+id/buttonComentarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/coment_rios"
+            android:textColor="#3E2723" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>
