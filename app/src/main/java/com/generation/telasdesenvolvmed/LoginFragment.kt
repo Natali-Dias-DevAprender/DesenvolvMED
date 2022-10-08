@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.buttonCadastro.setOnClickListener {
-            Toast.makeText(context, "Cadastro ainda não configurado", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_loginFragment_to_cadastroFragment)
         }
 
         return binding.root
