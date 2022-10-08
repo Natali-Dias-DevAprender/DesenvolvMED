@@ -7,67 +7,59 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.generation.telasdesenvolvmed.adapter.PostagemAdapter
 import com.generation.telasdesenvolvmed.databinding.FragmentPostBinding
-import com.generation.telasdesenvolvmed.model.Cadastro
-import com.generation.telasdesenvolvmed.model.Medico
-import com.generation.telasdesenvolvmed.model.Postagem
-import com.generation.telasdesenvolvmed.model.Tema
+import com.generation.telasdesenvolvmed.model.*
 
 
 class PostFragment : Fragment() {
 
-    private lateinit var binding: FragmentPostBinding
+	private lateinit var binding: FragmentPostBinding
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+	private val mainViewModel: MainViewModel by activityViewModels()
 
-    ): View? {
-        // Inflate the layout for this fragment
+	override fun onCreateView(
+		inflater: LayoutInflater, container: ViewGroup?,
+		savedInstanceState: Bundle?
 
-        binding = FragmentPostBinding.inflate(layoutInflater, container, false)
+	): View? {
+		// Inflate the layout for this fragment
 
-        //binding.dmToolbar.toolbarTitle.text = "DesenvolvMED"
+		binding = FragmentPostBinding.inflate(layoutInflater, container, false)
 
-        val listPostagens = listOf(
-            Postagem(
-                2,
-                Tema(1, "Vacina", null ),
-                Medico(1, "CRM/SP 123546", Cadastro(1, "01754689720",
-                    "Joviraldo", "Robson", "2154154", "jovis@gmail.com",
-                    null ),null,),
-                "Cerveja",
-                "A cerveja é muito importante para a sua saude pois faz parte de 98% do seu organismo",
-                "https://imgur.com/vpVts7m"
-            ),
-            Postagem(
-                1,
-                Tema(1, "Vacina", null ),
-                Medico(1, "CRM/SP 123546", Cadastro(1, "01754689720",
-                    "Joviraldo", "Robson", "2154154", "jovis@gmail.com",
-                    null ),null,),
-                "Sake",
-                "A sake é muito importante para a sua saude pois faz parte de 98% do seu organismo",
-                "https://imgur.com/vpVts7m"
-            ),
-        )
+		mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
+			if (response.body() != null) {
+				binding.addPostButton.visibility = View.INVISIBLE
+			}
+		}
 
-        val postagemAdapter = PostagemAdapter()
-        binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
-        binding.recyclerPostagem.adapter = postagemAdapter
-        binding.recyclerPostagem.setHasFixedSize(true)
+		mainViewModel.listPostagem()
 
-        postagemAdapter.setList(listPostagens)
+		binding.swipeToRefresh.setOnRefreshListener {
+			mainViewModel.listPostagem()
+		}
 
-        binding.addPostButton.setOnClickListener{
-            findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
-        }
+		val postagemAdapter = PostagemAdapter()
+		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
+		binding.recyclerPostagem.adapter = postagemAdapter
+		binding.recyclerPostagem.setHasFixedSize(true)
 
-        return binding.root
-    }
+		binding.addPostButton.setOnClickListener {
+			findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
+		}
+
+		mainViewModel.myPostagemResponse.observe(viewLifecycleOwner) { response ->
+			if (response.body() != null) {
+				postagemAdapter.setList(response.body()!!)
+				binding.swipeToRefresh.isRefreshing = false
+			}
+		}
+
+		return binding.root
+	}
 
 
 }
