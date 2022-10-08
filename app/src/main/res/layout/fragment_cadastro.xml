@@ -12,6 +12,23 @@
         android:layout_height="wrap_content">
 
 
+        <ImageButton
+            android:id="@+id/voltarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:contentDescription="@string/botao_de_voltarCadastro"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/tv_titulo"
+            app:layout_constraintEnd_toStartOf="@+id/iv_logo"
+            app:layout_constraintHorizontal_bias="0.118"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.269"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
+
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="44dp"
@@ -63,7 +80,8 @@
             android:src="@drawable/img_cadastro_form"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_subtitulo" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_subtitulo"
+            tools:ignore="ImageContrastCheck" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/nome"
@@ -86,11 +104,40 @@
                 android:id="@+id/til_nome"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome"
+                android:hint="@string/nomeCadastro"
                 android:textColorHint="#616161"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
 
 
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sobrenome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="32dp"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:circularflow_defaultRadius="20dp"
+            app:circularflow_radiusInDP="20dp"
+            app:layout_constraintCircleRadius="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nome">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_sobrenome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sobrenome"
+                android:textColorHint="#616161"
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -98,6 +145,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="80dp"
             android:layout_marginEnd="32dp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
@@ -112,9 +160,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="57dp"
-                android:hint="CPF"
+                android:hint="@string/cpfCadastro"
                 android:textColorHint="#757575"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -134,12 +183,14 @@
             app:layout_constraintTop_toBottomOf="@+id/cpf">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="57dp"
-                android:hint="E-mail"
+                android:hint="@string/e_mailCadastro"
                 android:textColorHint="#757575"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:ignore="TextContrastCheck" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -158,10 +209,11 @@
             app:layout_constraintTop_toBottomOf="@+id/email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_senha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="57dp"
-                android:hint="Senha"
+                android:hint="@string/senhaCadastro"
                 android:textSize="16sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -174,7 +226,7 @@
             android:layout_marginTop="57dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="49dp"
-            android:hint="Confirmar senha"
+            android:hint="@string/confirmar_senhaCadastro"
             android:textSize="16sp"
             app:boxCornerRadiusBottomEnd="20dp"
             app:boxCornerRadiusBottomStart="20dp"
@@ -186,6 +238,7 @@
             app:layout_constraintTop_toBottomOf="@+id/id_senha">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/til_confirmaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -198,13 +251,12 @@
             android:layout_marginStart="43dp"
             android:layout_marginEnd="177dp"
             android:layout_weight="1"
-            android:text="TextView"
-            android:textSize="20dp"
+            android:text="@string/escolha_seu_perfilCadastro"
+            android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/selecao"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_confirma_senha"
-            tools:text=" Escolha seu perfil:" />
+            app:layout_constraintTop_toBottomOf="@+id/id_confirma_senha" />
 
         <RadioGroup
             android:id="@+id/selecao"
@@ -220,34 +272,59 @@
             app:layout_constraintTop_toBottomOf="@+id/id_escolha">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioPaciente"
                 android:layout_width="173dp"
                 android:layout_height="wrap_content"
-                android:text="Paciente" />
+                android:text="@string/pacienteCadastro" />
 
             <RadioButton
-                android:id="@+id/radioButton1"
+                android:id="@+id/radioMedico"
                 android:layout_width="173dp"
                 android:layout_height="wrap_content"
-                android:text="Médico" />
+                android:text="@string/m_dicoCadastro" />
 
         </RadioGroup>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inputExclusivoLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="invisible"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selecao">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputExclusivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <Button
-            android:id="@+id/button"
+            android:id="@+id/buttonCadastrar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="112dp"
             android:layout_marginEnd="32dp"
             android:layout_marginBottom="32dp"
             android:layout_weight="1"
-            android:text="Cadastrar"
+            android:text="@string/cadastrarCadastro"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/selecao" />
+            app:layout_constraintTop_toBottomOf="@+id/selecao"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
