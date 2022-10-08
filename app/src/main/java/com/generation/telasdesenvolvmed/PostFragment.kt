@@ -30,6 +30,12 @@ class PostFragment : Fragment() {
 
 		binding = FragmentPostBinding.inflate(layoutInflater, container, false)
 
+		mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
+			if (response.body() != null) {
+				binding.addPostButton.visibility = View.INVISIBLE
+			}
+		}
+
 		mainViewModel.listPostagem()
 
 		binding.swipeToRefresh.setOnRefreshListener {
