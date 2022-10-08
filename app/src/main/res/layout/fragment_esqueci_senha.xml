@@ -114,7 +114,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imagemEsqueciSenha">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/textInputTextoRecuperarSenha"
+                android:id="@+id/textInputSenhaEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="E-mail"
@@ -136,6 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tituloRecuperarSenha">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputSenhaCPF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="CPF" />
@@ -155,6 +156,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputRecuperarSenhaCPF">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputSenhaSenha"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Senha" />
@@ -174,6 +176,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputRecuperarSenha">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputSenhaConfirmar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Confirmar senha" />
