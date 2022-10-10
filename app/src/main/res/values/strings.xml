@@ -15,16 +15,10 @@
     <string name="bot_o_de_home">Botão de Home</string>
     <string name="botao_de_perfil">Botao de Perfil</string>
     <string name="ti_tulo_da_postagem">Título da postagem</string>
-    <string-array name="temas">
-        <item name="vacina" type="string">Vacina</item>
-        <item name="consultas" type="string">Consulta</item>
-        <item name="DoencasAutoimunes" type="string">Doenças auto imunes</item>
-        <item name="DSTS" type="string">DSTS</item>
-    </string-array>
+    <string name="botao_de_busca">Botão de Busca</string>
 
     <!-- TODO: Remove or change this placeholder text -->
 
-    <string name="botao_de_busca">Botão de Busca</string>
     <string name="botao_de_home">Botão de Home</string>
     <string name="botaoade_perfil">Botao de Perfil</string>
     <string name="nome">Nome</string>
@@ -65,4 +59,10 @@
     <string name="atualizar_postagem">Atualizar postagem</string>
     <string name="atualizar_botao">Atualizar</string>
     <string name="escreva_um_coment_rio">Escreva um comentário</string>
+    <string-array name="temas">
+        <item name="vacina" type="string">Vacina</item>
+        <item name="consultas" type="string">Consulta</item>
+        <item name="DoencasAutoimunes" type="string">Doenças auto imunes</item>
+        <item name="DSTS" type="string">DSTS</item>
+    </string-array>
 </resources>
