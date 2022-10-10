@@ -46,7 +46,6 @@ class PostFragment : Fragment(), PostagemClickListener {
 		binding.recyclerPostagem.adapter = postagemAdapter
 		binding.recyclerPostagem.setHasFixedSize(true)
 
-
 		binding.addPostButton.setOnClickListener {
 			mainViewModel.postagemSelecionada = null
 			findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
@@ -64,6 +63,6 @@ class PostFragment : Fragment(), PostagemClickListener {
 
 	override fun onPostagemClickListener(postagem: Postagem) {
 		mainViewModel.postagemSelecionada = postagem
-		findNavController().navigate(R.id.action_postFragment_to_comentariosFragment)
+		findNavController().navigate(R.id.action_postFragment_to_editPostFragment2)
 	}
 }
