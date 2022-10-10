@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.generation.telasdesenvolvmed.databinding.FragmentPerfilBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class PerfilFragment : Fragment() {
@@ -37,14 +40,20 @@ class PerfilFragment : Fragment() {
 
         binding.buttonLogout.setOnClickListener {
             mainViewModel.nukeLogin()
-            mainViewModel.cadastroVerificado.value?.body()?.senha = ""
+
+            mainViewModel.cadastroVerificado.value?.body()?.email = ""
+            mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
+            mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
+
             mainViewModel.getCadastroByEmail("")
-            mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
-                    response -> if (response.body() == null) {
-                        findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+            mainViewModel.viewModelScope.launch {
+                delay(2000)
+                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                        response -> if (response.body() == null) {
+                            findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+                    }
                 }
             }
-
         }
 
 

@@ -34,10 +34,21 @@ class PostagemAdapter (
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
 
-
-		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!
+		/*
+		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong()
 
 		if(idProcurado != postagem.medico.cadastro.id) {
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		} else {
+			holder.binding.botaoEditarPost.visibility = View.VISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
+		}*/
+
+
+		val emailProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
+
+		if(emailProcurado != postagem.medico.cadastro.email){
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		} else {
