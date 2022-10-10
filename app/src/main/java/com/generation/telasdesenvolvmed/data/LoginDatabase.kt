@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 @Database(entities = [Login::class], version = 1, exportSchema = false)
@@ -26,9 +29,16 @@ abstract class LoginDatabase : RoomDatabase(){
                     context.applicationContext,
                     LoginDatabase::class.java,
                     "login_database"
-                ).build()
+                ).allowMainThreadQueries()
+                    .build()
                 INSTANCE = instance
                 return instance
+            }
+        }
+
+        fun clearTables(){
+            GlobalScope.launch(Dispatchers.IO){
+                this@Companion.clearTables()
             }
         }
     }
