@@ -19,7 +19,6 @@ class PostFragment : Fragment(), PostagemClickListener {
 	private lateinit var binding: FragmentPostBinding
 
 	private val mainViewModel: MainViewModel by activityViewModels()
-
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
 		savedInstanceState: Bundle?
@@ -28,6 +27,7 @@ class PostFragment : Fragment(), PostagemClickListener {
 		// Inflate the layout for this fragment
 
 		binding = FragmentPostBinding.inflate(layoutInflater, container, false)
+
 
 		mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
 			if (response.body() != null) {
@@ -45,6 +45,7 @@ class PostFragment : Fragment(), PostagemClickListener {
 		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
 		binding.recyclerPostagem.adapter = postagemAdapter
 		binding.recyclerPostagem.setHasFixedSize(true)
+
 
 		binding.addPostButton.setOnClickListener {
 			findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)

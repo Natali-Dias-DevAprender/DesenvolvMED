@@ -1,6 +1,7 @@
 package com.generation.telasdesenvolvmed.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.generation.telasdesenvolvmed.MainViewModel
@@ -40,6 +41,16 @@ class PostagemAdapter (
 		holder.binding.botaoEditarPost.setOnClickListener {
 			postagemClickListener.onPostagemClickListener(postagem)
 		}
+
+		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null){
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		}
+
+		if(mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString() != postagem.medico.cadastro!!.nome){
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		}
 	}
 
 	override fun getItemCount(): Int {
@@ -50,4 +61,5 @@ class PostagemAdapter (
 		listPostagem = list.sortedByDescending { it.id }
 		notifyDataSetChanged()
 	}
+
 }

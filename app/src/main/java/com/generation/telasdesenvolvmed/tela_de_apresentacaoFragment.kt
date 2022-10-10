@@ -36,9 +36,16 @@ class tela_de_apresentacaoFragment : Fragment() {
         //mainViewModel.selectLogin.observe(viewLifecycleOwner){
             if(mainViewModel.selectLogin.value?.size!! >= 1){
                 val email = mainViewModel.selectLogin.value?.get(0)?.email.toString()
+                println(email)
                 mainViewModel.getCadastroByEmail(email)
+
+                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                        response -> if (response.body() != null) {
+                            findNavController().navigate(R.id.action_tela_de_apresentacaoFragment_to_postFragment)
+                        }
+                }
                 //findNavController().navigate(R.id.action_tela_de_apresentacaoFragment_to_loginFragment)
-                findNavController().navigate(R.id.action_tela_de_apresentacaoFragment_to_postFragment)
+
             } else{
                 //findNavController().navigate(R.id.action_tela_de_apresentacaoFragment_to_loginFragment)
                 findNavController().navigate(R.id.action_tela_de_apresentacaoFragment_to_loginFragment)
