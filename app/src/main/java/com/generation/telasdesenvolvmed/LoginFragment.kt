@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.generation.telasdesenvolvmed.data.Login
 import com.generation.telasdesenvolvmed.databinding.FragmentLoginBinding
 
 
@@ -33,7 +34,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.buttonCadastro.setOnClickListener {
-            Toast.makeText(context, "Cadastro ainda não configurado", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_loginFragment_to_cadastroFragment)
         }
 
         return binding.root
@@ -93,6 +94,11 @@ class LoginFragment : Fragment() {
                             "Login Bem Sucedido",
                             Toast.LENGTH_SHORT
                         ).show()
+                        mainViewModel.addLogin(
+                            Login(0,
+                                mainViewModel.cadastroVerificado.value?.body()!!.email,
+                                mainViewModel.cadastroVerificado.value?.body()!!.senha)
+                        )
                         findNavController().navigate(R.id.action_loginFragment_to_postFragment)
                     } else {
                         Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()

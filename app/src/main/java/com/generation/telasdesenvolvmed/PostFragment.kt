@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.generation.telasdesenvolvmed.adapter.PostagemAdapter
+import com.generation.telasdesenvolvmed.data.Login
 import com.generation.telasdesenvolvmed.databinding.FragmentPostBinding
 import com.generation.telasdesenvolvmed.model.*
 
@@ -35,6 +36,9 @@ class PostFragment : Fragment() {
 				binding.addPostButton.visibility = View.INVISIBLE
 			}
 		}
+
+		/*
+*/
 
 		mainViewModel.listPostagem()
 
