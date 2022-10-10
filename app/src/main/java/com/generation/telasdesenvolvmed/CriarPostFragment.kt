@@ -89,7 +89,7 @@ class CriarPostFragment : Fragment() {
 		val anexo = binding.textAnexo.text.toString()
 		//val medico = binding.currentUser.medico.id
 		val medico = Medico(
-			1, null, null, null
+			mainViewModel.medicoLogado.value?.body()?.id!!.toLong(), null, null, null
 		)
 		val dataPostagem = LocalDateTime.now().toString()
 		val tema = Tema(temaSelecionado, null, null)

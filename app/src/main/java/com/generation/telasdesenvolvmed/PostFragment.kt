@@ -37,6 +37,8 @@ class PostFragment : Fragment() {
 			}
 		}
 
+		println(" Paciente logado email: "+ mainViewModel.cadastroVerificado.value?.body()?.email.toString())
+		println(" Paciente logado nome: "+ mainViewModel.cadastroVerificado.value?.body()?.nome.toString())
 		/*
 */
 
