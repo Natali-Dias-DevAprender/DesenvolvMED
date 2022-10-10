@@ -55,10 +55,10 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_comentario"
             style="@style/StyledTilEditText"
-            android:layout_width="match_parent"
+            android:layout_width="306dp"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:background="@drawable/bj_comentario"
+            android:gravity="center_vertical"
             android:padding="5dp">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -76,6 +76,13 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/imageButtonComentar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@android:drawable/ic_menu_send" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

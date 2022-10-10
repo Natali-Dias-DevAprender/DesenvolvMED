@@ -40,6 +40,8 @@ class MainViewModel @Inject constructor(
 
 	var postagemSelecionada: Postagem? = null
 
+	var comentarioSelecionado: Comentario? = null
+
 	init{
 		//val loginDao = LoginDatabase.getDatabase(application).loginDao()
 		//daoRepository = LoginRepository(loginDao)
@@ -214,6 +216,19 @@ class MainViewModel @Inject constructor(
 	fun nukeLogin(){
 		viewModelScope.launch(Dispatchers.IO) {
 			repository.nukeTable()
+		}
+	}
+
+	fun updatePostagem(postagem: Postagem) {
+		viewModelScope.launch {
+			try {
+
+				repository.updatePostagem(postagem)
+				listPostagem()
+
+			} catch (e: Exception) {
+				Log.d("Erro", e.message.toString())
+			}
 		}
 	}
 }

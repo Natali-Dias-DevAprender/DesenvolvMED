@@ -24,6 +24,7 @@ class CriarPostFragment : Fragment() {
 	private lateinit var binding: FragmentCriarPostBinding
 	private val mainViewModel: MainViewModel by activityViewModels()
 	private var temaSelecionado = 0L
+	private var postagemSelecionada: Postagem? = null
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +33,7 @@ class CriarPostFragment : Fragment() {
 		// Inflate the layout for this fragment
 		binding = FragmentCriarPostBinding.inflate(layoutInflater, container, false)
 
-		//binding.dmToolbar.toolbarImg.drawable
+		carregarDados()
 
 		mainViewModel.listTema()
 
@@ -87,22 +88,47 @@ class CriarPostFragment : Fragment() {
 		val titulo = binding.tituloText.text.toString()
 		val conteudo = binding.postText.text.toString()
 		val anexo = binding.textAnexo.text.toString()
-		//val medico = binding.currentUser.medico.id
 		val medico = Medico(
-			mainViewModel.medicoLogado.value?.body()?.id!!.toLong(), null, null, null
+			mainViewModel.medicoLogado.value?.body()?.id!!.toLong(), null,
+			null, null
 		)
 		val dataPostagem = LocalDateTime.now().toString()
 		val tema = Tema(temaSelecionado, null, null)
 
 		if (validarCampos(titulo, conteudo, anexo)) {
+			val salvar: String
 
-			val postagem = Postagem(0, titulo, conteudo, anexo, dataPostagem, tema, medico)
-			mainViewModel.addPostagem(postagem)
-			Toast.makeText(context, "Postagem criada!", Toast.LENGTH_SHORT).show()
+			if (postagemSelecionada != null) {
+
+				salvar = "Postagem atualizada!"
+				val postagem = Postagem(
+					postagemSelecionada?.id!!, titulo, conteudo, anexo,
+					dataPostagem, tema, medico
+				)
+				mainViewModel.addPostagem(postagem)
+
+			} else {
+				salvar = "Tarefa criada!"
+				val postagem = Postagem(
+					0, titulo, conteudo, anexo, dataPostagem, tema, medico
+				)
+				mainViewModel.addPostagem(postagem)
+			}
+
+			Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
 			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
 
 		} else {
 			Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+		}
+	}
+
+	private fun carregarDados() {
+		postagemSelecionada = mainViewModel.postagemSelecionada
+		if (postagemSelecionada != null) {
+			binding.tituloText.setText(postagemSelecionada?.titulo)
+			binding.postText.setText(postagemSelecionada?.descricao)
+			binding.textAnexo.setText(postagemSelecionada?.anexo)
 		}
 	}
 }

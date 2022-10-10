@@ -47,7 +47,7 @@ class PostagemAdapter (
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}
 
-		if(mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString() != postagem.medico.cadastro!!.nome){
+		if(mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString() != postagem.medico.cadastro.nome){
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}

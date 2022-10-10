@@ -17,7 +17,7 @@ class ComentarioAdapter(
 	class ComentarioViewHolder(val binding: ItemDeComentariosBinding) : RecyclerView.ViewHolder(binding.root)
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComentarioViewHolder {
-		return ComentarioAdapter.ComentarioViewHolder(
+		return ComentarioViewHolder(
 			ItemDeComentariosBinding.inflate(
 				LayoutInflater.from(parent.context), parent, false
 			)
@@ -29,6 +29,7 @@ class ComentarioAdapter(
 
 		holder.binding.textNome.text = comentario.cadastro.nome
 		holder.binding.textConteudo.text = comentario.conteudo
+
 		holder.binding.botaoEditarComentario.setOnClickListener {
 			comentarioClickListener.onComentarioClickListener(comentario)
 		}

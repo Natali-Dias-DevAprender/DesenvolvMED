@@ -48,6 +48,7 @@ class PostFragment : Fragment(), PostagemClickListener {
 
 
 		binding.addPostButton.setOnClickListener {
+			mainViewModel.postagemSelecionada = null
 			findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
 		}
 

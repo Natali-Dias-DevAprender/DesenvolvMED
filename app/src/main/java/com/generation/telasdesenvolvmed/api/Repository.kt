@@ -21,12 +21,20 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
         return RetrofitInstance.api.addPostagem(postagem)
     }
 
+    suspend fun updatePostagem(postagem: Postagem): Response<Postagem> {
+        return RetrofitInstance.api.updatePostagem(postagem)
+    }
+
     suspend fun listComentario(): Response<List<Comentario>> {
         return RetrofitInstance.api.listComentario()
     }
 
     suspend fun addComentario(comentario: Comentario): Response<Comentario> {
         return RetrofitInstance.api.addComentario(comentario)
+    }
+
+    suspend fun updateComentario(comentario: Comentario): Response<Comentario> {
+        return RetrofitInstance.api.updateComentario(comentario)
     }
 
     suspend fun getCadastroPacienteByEmail(email: String): Response<Paciente> {

@@ -17,11 +17,21 @@ interface ApiService {
         @Body postagem: Postagem
     ): Response<Postagem>
 
+    @PUT("postagem")
+    suspend fun updatePostagem(
+        @Body postagem: Postagem
+    ): Response<Postagem>
+
     @GET("comentario")
     suspend fun listComentario(): Response<List<Comentario>>
 
     @POST("comentario")
     suspend fun addComentario(
+        @Body comentario: Comentario
+    ): Response<Comentario>
+
+    @PUT("comentario")
+    suspend fun updateComentario(
         @Body comentario: Comentario
     ): Response<Comentario>
 
