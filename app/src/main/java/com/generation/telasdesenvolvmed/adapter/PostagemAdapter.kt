@@ -53,7 +53,7 @@ class PostagemAdapter (
 			postagemClickListener.onPostagemClickListener(postagem)
 		}
 
-		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null){
+		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null) {
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}
