@@ -31,9 +31,6 @@
             android:id="@+id/action_postFragment_to_editPostFragment"
             app:destination="@id/editPostFragment" />
         <action
-            android:id="@+id/action_postFragment_to_editPostFragment2"
-            app:destination="@id/editPostFragment" />
-        <action
             android:id="@+id/action_postFragment_to_perfilFragment"
             app:destination="@id/perfilFragment"
             app:popUpTo="@id/perfilFragment"

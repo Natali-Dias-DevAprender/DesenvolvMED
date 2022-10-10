@@ -1,6 +1,7 @@
 package com.generation.telasdesenvolvmed.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.generation.telasdesenvolvmed.MainViewModel
@@ -32,6 +33,16 @@ class ComentarioAdapter(
 
 		holder.binding.botaoEditarComentario.setOnClickListener {
 			comentarioClickListener.onComentarioClickListener(comentario)
+		}
+
+		val idProcurado = mainViewModel.cadastroVerificado.value?.body()?.id!!
+
+		if(idProcurado != comentario.cadastro.id) {
+			holder.binding.botaoEditarComentario.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarComentario.visibility = View.INVISIBLE
+		} else {
+			holder.binding.botaoEditarComentario.visibility = View.VISIBLE
+			holder.binding.botaoDeletarComentario.visibility = View.VISIBLE
 		}
 	}
 

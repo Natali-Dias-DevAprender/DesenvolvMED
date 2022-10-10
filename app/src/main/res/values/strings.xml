@@ -59,6 +59,7 @@
     <string name="atualizar_postagem">Atualizar postagem</string>
     <string name="atualizar_botao">Atualizar</string>
     <string name="escreva_um_coment_rio">Escreva um comentário</string>
+    <string name="editar">Editar</string>
     <string-array name="temas">
         <item name="vacina" type="string">Vacina</item>
         <item name="consultas" type="string">Consulta</item>

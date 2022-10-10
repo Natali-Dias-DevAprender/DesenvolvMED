@@ -22,7 +22,6 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 	private lateinit var binding: FragmentComentariosBinding
 	private val mainViewModel: MainViewModel by activityViewModels()
 	private var postagemSelecionada: Postagem? = null
-	var comentarioSelecionado: Comentario? = null
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,

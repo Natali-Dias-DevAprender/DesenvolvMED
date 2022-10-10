@@ -35,9 +35,9 @@ class PostagemAdapter (
 		holder.binding.linkAnexo.text = postagem.anexo
 
 
-		val nomeProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString()
+		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!
 
-		if(nomeProcurado != postagem.medico.cadastro.nome){
+		if(idProcurado != postagem.medico.cadastro.id) {
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		} else {
@@ -46,18 +46,17 @@ class PostagemAdapter (
 		}
 
 		holder.binding.buttonComentarios.setOnClickListener {
-			postagemClickListener.onPostagemClickListener(postagem)
+			postagemClickListener.onPostagemParaComentarioClickListener(postagem)
 		}
 
 		holder.binding.botaoEditarPost.setOnClickListener {
 			postagemClickListener.onPostagemClickListener(postagem)
 		}
 
-		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null){
+		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null) {
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}
-		
 	}
 
 	override fun getItemCount(): Int {
