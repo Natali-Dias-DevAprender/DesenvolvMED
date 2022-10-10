@@ -17,9 +17,19 @@ class InicialFragment : Fragment() {
     ): View? {
         binding = FragmentInicialBinding.inflate(layoutInflater, container, false)
 
-        //findNavController().navigate(R.id.action_inicialFragment_to_postFragment)
+        binding.imageView.alpha = 0f
+
+        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction{
+            activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+        }
+
+        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction{
+            findNavController().navigate(R.id.action_inicialFragment_to_tela_de_apresentacaoFragment)
+        }
 
         return binding.root
     }
+
+
 
 }
