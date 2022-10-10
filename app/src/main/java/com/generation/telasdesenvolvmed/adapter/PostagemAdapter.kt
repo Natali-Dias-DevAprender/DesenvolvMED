@@ -1,12 +1,16 @@
 package com.generation.telasdesenvolvmed.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.generation.telasdesenvolvmed.MainViewModel
 import com.generation.telasdesenvolvmed.databinding.CardLayoutBinding
 import com.generation.telasdesenvolvmed.model.Postagem
 
-class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
+class PostagemAdapter(
+	val mainViewModel: MainViewModel
+) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
 
 	private var listPostagem = emptyList<Postagem>()
 
@@ -28,6 +32,19 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
 		holder.binding.tituloPost.text = postagem.titulo
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
+
+		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null){
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		}
+
+		if(mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString() != postagem.medico.cadastro!!.nome){
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		}
+
+
+
 	}
 
 	override fun getItemCount(): Int {
@@ -38,4 +55,5 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
 		listPostagem = list
 		notifyDataSetChanged()
 	}
+
 }
