@@ -36,15 +36,14 @@ class MainViewModel @Inject constructor(
 
 	var cadastroVerificado = MutableLiveData<Response<Cadastro>>()
 
-	val selectLogin: LiveData<List<Login>> = repository.selectLogin
+	val selectLogin: LiveData<List<Login>>
 
 	var postagemSelecionada: Postagem? = null
 
 	var comentarioSelecionado: Comentario? = null
 
 	init{
-		//val loginDao = LoginDatabase.getDatabase(application).loginDao()
-		//daoRepository = LoginRepository(loginDao)
+		selectLogin = repository.selectLogin
 	}
 
 	fun listTema() {
@@ -230,5 +229,9 @@ class MainViewModel @Inject constructor(
 				Log.d("Erro", e.message.toString())
 			}
 		}
+	}
+
+	fun clear(){
+		LoginDatabase.clearTables()
 	}
 }

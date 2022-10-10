@@ -91,23 +91,26 @@ class LoginFragment : Fragment() {
 
             mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
                 if (response.body() != null) {
-                    mainViewModel.viewModelScope.launch {
-                        delay(2000)
-                        if (senha == mainViewModel.cadastroVerificado.value?.body()?.senha.toString()) {
-                            Toast.makeText(
-                                context,
-                                "Login Bem Sucedido",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            mainViewModel.addLogin(
-                                Login(0,
-                                    mainViewModel.cadastroVerificado.value?.body()!!.email,
-                                    mainViewModel.cadastroVerificado.value?.body()!!.senha)
-                            )
-                            findNavController().navigate(R.id.action_loginFragment_to_postFragment)
-                        } else {
-                            Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
+                    if (senha == mainViewModel.cadastroVerificado.value?.body()?.senha.toString()) {
+                        Toast.makeText(
+                            context,
+                            "Login Bem Sucedido",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        mainViewModel.addLogin(
+                            Login(0,
+                                mainViewModel.cadastroVerificado.value?.body()!!.email,
+                                mainViewModel.cadastroVerificado.value?.body()!!.senha)
+                        )
+                        mainViewModel.selectLogin.observe(viewLifecycleOwner){
+                            response -> if(response.size > 0){
+                            println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
+                                findNavController().navigate(R.id.action_loginFragment_to_postFragment)
+                            }
                         }
+
+                    } else {
+                        Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.room.RoomDatabase
+import com.generation.telasdesenvolvmed.data.LoginDatabase
 import com.generation.telasdesenvolvmed.databinding.FragmentPerfilBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,19 +43,28 @@ class PerfilFragment : Fragment() {
         binding.buttonLogout.setOnClickListener {
             mainViewModel.nukeLogin()
 
-            mainViewModel.cadastroVerificado.value?.body()?.email = ""
-            mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
-            mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
+            mainViewModel.selectLogin.observe(viewLifecycleOwner){
+                response -> if(response.size == 0){
+                println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
+                mainViewModel.cadastroVerificado.value?.body()?.email = ""
+                mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
+                mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
 
-            mainViewModel.getCadastroByEmail("")
-            mainViewModel.viewModelScope.launch {
-                delay(2000)
-                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
-                        response -> if (response.body() == null) {
-                            findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+                mainViewModel.getCadastroByEmail("")
+                findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+                /*
+                mainViewModel.viewModelScope.launch {
+                    delay(3000)
+                    mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                            response -> if (response.body() == null) {
+                        findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
                     }
+                    }
+                }*/
                 }
             }
+
+
         }
 
 

@@ -110,6 +110,10 @@ class cadastroFragment : Fragment() {
                     MedicoCadastro(0, cpf, nome, sobrenome, senha, email, crm),
                     email
                 )
+                mainViewModel.viewModelScope.launch{
+                    delay(2000)
+                    mainViewModel.getCadastroByEmail(email)
+                }
                 findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
             } else if (!emailNovo) {
                 emailNovo = true
@@ -167,6 +171,10 @@ class cadastroFragment : Fragment() {
                     PacienteCadastro(0, cpf, nome, sobrenome, senha, email, convenio),
                     email
                 )
+                mainViewModel.viewModelScope.launch{
+                    delay(2000)
+                    mainViewModel.getCadastroByEmail(email)
+                }
                 findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
             } else if (!emailNovo) {
                 emailNovo = true
