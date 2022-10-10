@@ -46,6 +46,10 @@ class CriarPostFragment : Fragment() {
 			inserirNoBanco()
 		}
 
+		binding.botaoVoltarFeed.setOnClickListener {
+			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
+		}
+
 		return binding.root
 	}
 
@@ -96,26 +100,15 @@ class CriarPostFragment : Fragment() {
 		val tema = Tema(temaSelecionado, null, null)
 
 		if (validarCampos(titulo, conteudo, anexo)) {
-			val salvar: String
 
-			if (postagemSelecionada != null) {
-
-				salvar = "Postagem atualizada!"
-				val postagem = Postagem(
-					postagemSelecionada?.id!!, titulo, conteudo, anexo,
-					dataPostagem, tema, medico
-				)
-				mainViewModel.addPostagem(postagem)
-
-			} else {
-				salvar = "Tarefa criada!"
+			if (postagemSelecionada == null) {
 				val postagem = Postagem(
 					0, titulo, conteudo, anexo, dataPostagem, tema, medico
 				)
 				mainViewModel.addPostagem(postagem)
 			}
 
-			Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
+			Toast.makeText(context, "Postagem realizada com sucesso!", Toast.LENGTH_LONG).show()
 			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
 
 		} else {

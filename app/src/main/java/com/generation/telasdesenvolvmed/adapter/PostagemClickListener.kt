@@ -5,4 +5,6 @@ import com.generation.telasdesenvolvmed.model.Postagem
 interface PostagemClickListener {
 
 	fun onPostagemClickListener(postagem: Postagem)
+
+	fun onPostagemParaComentarioClickListener(postagem: Postagem)
 }

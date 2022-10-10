@@ -63,6 +63,11 @@ class PostFragment : Fragment(), PostagemClickListener {
 
 	override fun onPostagemClickListener(postagem: Postagem) {
 		mainViewModel.postagemSelecionada = postagem
-		findNavController().navigate(R.id.action_postFragment_to_editPostFragment2)
+		findNavController().navigate(R.id.action_postFragment_to_editPostFragment)
+	}
+
+	override fun onPostagemParaComentarioClickListener(postagem: Postagem) {
+		mainViewModel.postagemSelecionada = postagem
+		findNavController().navigate(R.id.action_postFragment_to_comentariosFragment)
 	}
 }
