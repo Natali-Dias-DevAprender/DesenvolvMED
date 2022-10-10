@@ -33,6 +33,11 @@
         <action
             android:id="@+id/action_postFragment_to_editPostFragment2"
             app:destination="@id/editPostFragment" />
+        <action
+            android:id="@+id/action_postFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment"
+            app:popUpTo="@id/perfilFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -145,20 +150,64 @@
         android:id="@+id/perfilFragment"
         android:name="com.generation.telasdesenvolvmed.PerfilFragment"
         android:label="fragment_perfil"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_perfilFragment_to_postFragment"
+            app:destination="@id/postFragment"
+            app:popUpTo="@id/postFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_perfilFragment_to_dadosPessoaisFragment"
+            app:destination="@id/dadosPessoaisFragment"
+            app:popUpTo="@id/dadosPessoaisFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_perfilFragment_to_suporteFragment"
+            app:destination="@id/suporteFragment"
+            app:popUpTo="@id/suporteFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_perfilFragment_to_sobreFragment"
+            app:destination="@id/sobreFragment"
+            app:popUpTo="@id/sobreFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_perfilFragment_to_inicialFragment"
+            app:destination="@id/inicialFragment"
+            app:popUpTo="@id/inicialFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/dadosPessoaisFragment"
         android:name="com.generation.telasdesenvolvmed.DadosPessoaisFragment"
         android:label="fragment_dados_pessoais"
-        tools:layout="@layout/fragment_dados_pessoais" />
+        tools:layout="@layout/fragment_dados_pessoais" >
+        <action
+            android:id="@+id/action_dadosPessoaisFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment"
+            app:popUpTo="@id/perfilFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/suporteFragment"
         android:name="com.generation.telasdesenvolvmed.SuporteFragment"
         android:label="fragment_suporte"
-        tools:layout="@layout/fragment_suporte" />
+        tools:layout="@layout/fragment_suporte" >
+        <action
+            android:id="@+id/action_suporteFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment"
+            app:popUpTo="@id/perfilFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/sobreFragment"
         android:name="com.generation.telasdesenvolvmed.SobreFragment"
         android:label="fragment_sobre"
-        tools:layout="@layout/fragment_sobre" />
+        tools:layout="@layout/fragment_sobre" >
+        <action
+            android:id="@+id/action_sobreFragment_to_perfilFragment"
+            app:destination="@id/perfilFragment"
+            app:popUpTo="@id/perfilFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
