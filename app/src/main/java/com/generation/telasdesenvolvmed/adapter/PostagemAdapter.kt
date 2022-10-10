@@ -3,10 +3,14 @@ package com.generation.telasdesenvolvmed.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.generation.telasdesenvolvmed.MainViewModel
 import com.generation.telasdesenvolvmed.databinding.CardLayoutBinding
 import com.generation.telasdesenvolvmed.model.Postagem
 
-class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
+class PostagemAdapter (
+	private val postagemClickListener: PostagemClickListener,
+	val mainViewModel: MainViewModel
+		) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
 
 	private var listPostagem = emptyList<Postagem>()
 
@@ -28,6 +32,14 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
 		holder.binding.tituloPost.text = postagem.titulo
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
+
+		holder.binding.buttonComentarios.setOnClickListener {
+			postagemClickListener.onPostagemClickListener(postagem)
+		}
+
+		holder.binding.botaoEditarPost.setOnClickListener {
+			postagemClickListener.onPostagemClickListener(postagem)
+		}
 	}
 
 	override fun getItemCount(): Int {
@@ -35,7 +47,7 @@ class PostagemAdapter : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>
 	}
 
 	fun setList(list: List<Postagem>) {
-		listPostagem = list
+		listPostagem = list.sortedByDescending { it.id }
 		notifyDataSetChanged()
 	}
 }

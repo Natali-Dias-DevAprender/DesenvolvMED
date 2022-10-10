@@ -5,18 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.generation.telasdesenvolvmed.adapter.PostagemAdapter
-import com.generation.telasdesenvolvmed.data.Login
+import com.generation.telasdesenvolvmed.adapter.PostagemClickListener
 import com.generation.telasdesenvolvmed.databinding.FragmentPostBinding
 import com.generation.telasdesenvolvmed.model.*
 
 
-class PostFragment : Fragment() {
+class PostFragment : Fragment(), PostagemClickListener {
 
 	private lateinit var binding: FragmentPostBinding
 
@@ -37,16 +35,13 @@ class PostFragment : Fragment() {
 			}
 		}
 
-		/*
-*/
-
 		mainViewModel.listPostagem()
 
 		binding.swipeToRefresh.setOnRefreshListener {
 			mainViewModel.listPostagem()
 		}
 
-		val postagemAdapter = PostagemAdapter()
+		val postagemAdapter = PostagemAdapter(this, mainViewModel)
 		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
 		binding.recyclerPostagem.adapter = postagemAdapter
 		binding.recyclerPostagem.setHasFixedSize(true)
@@ -65,5 +60,8 @@ class PostFragment : Fragment() {
 		return binding.root
 	}
 
-
+	override fun onPostagemClickListener(postagem: Postagem) {
+		mainViewModel.postagemSelecionada = postagem
+		findNavController().navigate(R.id.action_postFragment_to_comentariosFragment)
+	}
 }

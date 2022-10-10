@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="31dp"
         android:layout_marginTop="23dp"
-        android:text="Comentários"
+        android:text="@string/comentarios"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#0000BCD4"
-                android:hint="Escreva um comentário"
+                android:hint="@string/escreva_um_coment_rio"
                 android:inputType="text"
                 android:paddingBottom="10dp"
                 android:textAlignment="textStart"
@@ -76,9 +76,6 @@
 
 
         </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

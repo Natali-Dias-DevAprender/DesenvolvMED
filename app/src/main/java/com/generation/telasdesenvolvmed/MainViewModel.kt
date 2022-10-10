@@ -38,6 +38,8 @@ class MainViewModel @Inject constructor(
 
 	val selectLogin: LiveData<List<Login>> = repository.selectLogin
 
+	var postagemSelecionada: Postagem? = null
+
 	init{
 		//val loginDao = LoginDatabase.getDatabase(application).loginDao()
 		//daoRepository = LoginRepository(loginDao)

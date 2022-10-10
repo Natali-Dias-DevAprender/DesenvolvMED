@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="coment_rios">Comentários</string>
+    <string name="comentarios">Comentarios</string>
+    <string name="atualizar_postagem">Atualizar postagem</string>
+    <string name="escreva_um_coment_rio">Escreva um comentário</string>
 </resources>

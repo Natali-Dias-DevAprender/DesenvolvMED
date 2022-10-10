@@ -1,11 +1,14 @@
 package com.generation.telasdesenvolvmed.model
 
-data class Comentario (
-    val id : Long,
-    var conteudo : String,
-    val data : String,
-    val postagem : Postagem,
-    val cadastro : Cadastro
+import androidx.lifecycle.MutableLiveData
+import retrofit2.Response
+
+data class Comentario(
+    val id: Long,
+    var conteudo: String,
+    val data: String,
+    val postagem: Postagem,
+    val cadastro: Cadastro
         ){
 
 }
