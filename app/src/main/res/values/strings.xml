@@ -59,4 +59,6 @@
     <string name="senhaCadastro">Senha</string>
     <string name="botao_de_voltarCadastro">botao de voltar</string>
     <string name="sobrenome">Sobrenome</string>
+    <string name="lorem_ipsum_is_simply_dummy_text_of_the_printing_and_typesetting_industry_lorem_ipsum_has_been_the_industry_s_standard_dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text.</string>
+    <string name="todo1">TODO</string>
 </resources>
