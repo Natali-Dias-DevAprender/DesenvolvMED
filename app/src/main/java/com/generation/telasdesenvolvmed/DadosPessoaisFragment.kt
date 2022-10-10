@@ -1,59 +1,215 @@
 package com.generation.telasdesenvolvmed
 
 import android.os.Bundle
+import android.security.identity.CredentialDataResult
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.fragment.app.activityViewModels
+import com.generation.telasdesenvolvmed.databinding.FragmentDadosPessoaisBinding
+import com.generation.telasdesenvolvmed.model.MedicoCadastro
+import com.generation.telasdesenvolvmed.model.PacienteCadastro
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DadosPessoaisFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DadosPessoaisFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentDadosPessoaisBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dados_pessoais, container, false)
+        binding = FragmentDadosPessoaisBinding.inflate(layoutInflater, container, false)
+
+
+        defineSpinner()
+
+        binding.spinnerOpcoes.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                binding.textDadoAlterar.hint = binding.spinnerOpcoes.selectedItem.toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        binding.spinnerOpcoesP.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                binding.textDadoAlterar.hint = binding.spinnerOpcoesP.selectedItem.toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+
+        }
+
+        binding.botaoAlterar.setOnClickListener {
+            atualizaCadastro()
+        }
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DadosPessoaisFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DadosPessoaisFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    private fun defineSpinner() {
+        if(mainViewModel.medicoLogado.value?.body()?.crm == null){
+            binding.spinnerOpcoes.visibility = View.INVISIBLE
+            binding.spinnerOpcoesP.visibility = View.VISIBLE
+        }
+    }
+
+    private fun atualizaCadastro() {
+
+        var parametro = binding.textDadoAlterar.text.toString()
+        binding.textDadoAlterar.text.clear()
+
+        if(mainViewModel.medicoLogado.value?.body()?.crm == null){
+            if(binding.spinnerOpcoesP.selectedItem.toString() == "Nome"){
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attPaciente(PacienteCadastro(
+                        mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),
+                        parametro,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.senha.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
+                    ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.nome = parametro
+                } else{
+                    Toast.makeText(context, "Nome Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else if (binding.spinnerOpcoesP.selectedItem.toString() == "Sobrenome") {
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attPaciente(PacienteCadastro(
+                        mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.nome.toString(),
+                        parametro,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.senha.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
+                    ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.sobrenome = parametro
+                } else{
+                    Toast.makeText(context, "Sobrenome Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else if (binding.spinnerOpcoesP.selectedItem.toString() == "E-mail") {
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attPaciente(PacienteCadastro(
+                        mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.nome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.senha.toString(),
+                        parametro,
+                        mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
+                    ), parametro)
+                    mainViewModel.cadastroVerificado.value?.body()?.email = parametro
+                } else{
+                    Toast.makeText(context, "E-mail Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            }else if (binding.spinnerOpcoesP.selectedItem.toString() == "Convênio") {
+                if(parametro.isNotBlank() && parametro.length in 0..255){
+                    mainViewModel.attPaciente(PacienteCadastro(
+                        mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.nome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.senha.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString(),
+                        parametro
+                    ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.pacienteLogado.value?.body()?.convenio = parametro
+                } else{
+                    Toast.makeText(context, "Convenio Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else{
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attPaciente(PacienteCadastro(
+                        mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.nome.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        parametro,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
+                    ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.senha = parametro
+                } else{
+                    Toast.makeText(context, "Senha Invalida", Toast.LENGTH_SHORT).show()
                 }
             }
+        } else{
+            if(binding.spinnerOpcoes.selectedItem.toString() == "Nome"){
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attMedico(MedicoCadastro(
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString(),
+                        parametro,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.senha.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.crm.toString(),
+                    ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.nome = parametro
+                } else{
+                    Toast.makeText(context, "Nome Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else if (binding.spinnerOpcoes.selectedItem.toString() == "Sobrenome") {
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attMedico(MedicoCadastro(
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString(),
+                        parametro,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.senha.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.crm.toString(),
+                    ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.sobrenome = parametro
+                } else{
+                    Toast.makeText(context, "Sobrenome Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else if (binding.spinnerOpcoes.selectedItem.toString() == "E-mail") {
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attMedico(MedicoCadastro(
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.senha.toString(),
+                        parametro,
+                        mainViewModel.medicoLogado.value?.body()?.crm.toString(),
+                    ), parametro)
+                    mainViewModel.cadastroVerificado.value?.body()?.email = parametro
+                } else{
+                    Toast.makeText(context, "E-mail Incorreto", Toast.LENGTH_SHORT).show()
+                }
+            } else{
+                if(parametro.isNotBlank() && parametro.length in 1..255){
+                    mainViewModel.attMedico(MedicoCadastro(
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.sobrenome.toString(),
+                        parametro,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString(),
+                        mainViewModel.medicoLogado.value?.body()?.crm.toString(),
+                    ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString())
+                    mainViewModel.cadastroVerificado.value?.body()?.senha = parametro
+                } else{
+                    Toast.makeText(context, "Senha Invalida", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
+
 }

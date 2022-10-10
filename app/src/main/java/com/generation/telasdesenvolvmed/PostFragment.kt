@@ -58,6 +58,10 @@ class PostFragment : Fragment(), PostagemClickListener {
 			}
 		}
 
+		binding.perfilButton.setOnClickListener{
+			findNavController().navigate(R.id.action_postFragment_to_perfilFragment)
+		}
+
 		return binding.root
 	}
 
