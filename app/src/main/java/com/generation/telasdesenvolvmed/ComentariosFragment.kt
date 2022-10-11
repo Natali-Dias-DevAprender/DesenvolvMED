@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.generation.telasdesenvolvmed.adapter.ComentarioAdapter
 import com.generation.telasdesenvolvmed.adapter.ComentarioClickListener
 import com.generation.telasdesenvolvmed.databinding.FragmentComentariosBinding
+import com.generation.telasdesenvolvmed.model.Cadastro
 import com.generation.telasdesenvolvmed.model.Comentario
 import com.generation.telasdesenvolvmed.model.Postagem
 import java.time.LocalDateTime
@@ -21,7 +22,7 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 
 	private lateinit var binding: FragmentComentariosBinding
 	private val mainViewModel: MainViewModel by activityViewModels()
-	private var postagemSelecionada: Postagem? = null
+	//private var postagemSelecionada: Postagem? = null
 
 	override fun onCreateView(
 		inflater: LayoutInflater, container: ViewGroup?,
@@ -30,7 +31,7 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 		// Inflate the layout for this fragment
 		binding = FragmentComentariosBinding.inflate(layoutInflater, container, false)
 
-		mainViewModel.listComentario()
+		mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
 
 		val adapter = ComentarioAdapter(this, mainViewModel)
 		binding.recyclerView.layoutManager = LinearLayoutManager(context)
@@ -38,8 +39,16 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 		binding.recyclerView.setHasFixedSize(true)
 
 		binding.imageButtonComentar.setOnClickListener {
+			//println("Estou na postagem: "+ mainViewModel.postagemSelecionada?.id)
 			inserirNoBanco()
 		}
+
+		mainViewModel.myComentarioResponse.observe(viewLifecycleOwner){
+			response -> if(response.body() != null){
+				adapter.setList(response.body()!!)
+			}
+		}
+
 
 		return binding.root
 	}
@@ -54,16 +63,18 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 
 		val conteudo = binding.escrevaComentarioInput.text.toString()
 		val data = LocalDateTime.now().toString()
-		val postagem = postagemSelecionada!!
-		val cadastro = mainViewModel.cadastroVerificado.value?.body()
+		val postagem = Postagem(mainViewModel.postagemSelecionada!!.id, null, null, null, null, null, null)
+		val cadastro = Cadastro(mainViewModel.cadastroVerificado.value?.body()?.id!!.toLong(),null, null, null, null, null, null)
 
 		if (validarCampos(conteudo)) {
-			if (postagemSelecionada != null) {
-				val comentario = Comentario(0, conteudo, data, postagem, cadastro!!)
-				mainViewModel.addComentario(comentario)
+			//if (postagemSelecionada != null) {
+				//val comentario = Comentario()
+				mainViewModel.addComentario(Comentario(0, conteudo, data, postagem, cadastro), mainViewModel.postagemSelecionada!!.id)
 				Toast.makeText(context, "Comentário realizado!", Toast.LENGTH_SHORT).show()
-				findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
-			}
+				binding.escrevaComentarioInput.text?.clear()
+				//mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
+				//findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
+			//}
 		} else {
 			Toast.makeText(context, "Comentário não pode estar em branco!", Toast.LENGTH_SHORT).show()
 		}

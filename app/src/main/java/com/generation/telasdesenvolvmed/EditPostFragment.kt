@@ -11,7 +11,6 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.generation.telasdesenvolvmed.databinding.FragmentCriarPostBinding
 import com.generation.telasdesenvolvmed.databinding.FragmentEditPostBinding
 import com.generation.telasdesenvolvmed.model.Medico
 import com.generation.telasdesenvolvmed.model.Postagem

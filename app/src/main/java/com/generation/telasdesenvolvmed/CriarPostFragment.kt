@@ -10,10 +10,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import com.generation.telasdesenvolvmed.databinding.FragmentCriarPostBinding
-import com.generation.telasdesenvolvmed.model.Cadastro
 import com.generation.telasdesenvolvmed.model.Medico
 import com.generation.telasdesenvolvmed.model.Postagem
 import com.generation.telasdesenvolvmed.model.Tema

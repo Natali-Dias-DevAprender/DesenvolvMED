@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.generation.telasdesenvolvmed.MainViewModel
+import com.generation.telasdesenvolvmed.R
 import com.generation.telasdesenvolvmed.databinding.CardLayoutBinding
 import com.generation.telasdesenvolvmed.model.Postagem
 
@@ -31,11 +33,25 @@ class PostagemAdapter (
 	override fun onBindViewHolder(holder: PostagemViewHolder, position: Int) {
 		val postagem = listPostagem[position]
 
-		holder.binding.temaPost.text = postagem.tema.tema
-		holder.binding.nomeMedico.text = postagem.medico.cadastro!!.nome
+		holder.binding.temaPost.text = postagem.tema?.tema
+		holder.binding.nomeMedico.text = postagem.medico?.cadastro!!.nome
 		holder.binding.tituloPost.text = postagem.titulo
 		holder.binding.conteudoPost.text = postagem.descricao
-		holder.binding.linkAnexo.text = postagem.anexo
+		//holder.binding.linkAnexo.text = postagem.anexo
+
+		//Configurando o glide
+		/*
+		Context
+		Linkaa
+		Placeholder
+		ImageView
+		 */
+		//android.R.drawable.ic_menu_report_image
+		Glide
+			.with(context)
+			.load(postagem.anexo)
+			.placeholder(R.drawable.bg_text_input)
+			.into(holder.binding.imagePostagem)
 
 		/*
 		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong()

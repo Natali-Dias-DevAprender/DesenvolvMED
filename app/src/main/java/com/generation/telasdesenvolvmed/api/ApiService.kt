@@ -22,8 +22,8 @@ interface ApiService {
         @Body postagem: Postagem
     ): Response<Postagem>
 
-    @GET("comentario")
-    suspend fun listComentario(): Response<List<Comentario>>
+    @GET("postagem/comentarios/{id}")
+    suspend fun listComentario(@Path("id") id: Long): Response<List<Comentario>>
 
     @POST("comentario")
     suspend fun addComentario(
