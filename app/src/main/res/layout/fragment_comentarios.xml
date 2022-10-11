@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView11"
+        android:id="@+id/retornoDosComentarios"
         android:layout_width="40dp"
         android:layout_height="33dp"
         android:layout_marginStart="20dp"
