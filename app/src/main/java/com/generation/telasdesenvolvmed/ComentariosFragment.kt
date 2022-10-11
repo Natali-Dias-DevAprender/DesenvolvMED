@@ -20,67 +20,67 @@ import java.time.LocalDateTime
 
 class ComentariosFragment : Fragment(), ComentarioClickListener {
 
-	private lateinit var binding: FragmentComentariosBinding
-	private val mainViewModel: MainViewModel by activityViewModels()
-	//private var postagemSelecionada: Postagem? = null
+    private lateinit var binding: FragmentComentariosBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
+    //private var postagemSelecionada: Postagem? = null
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		binding = FragmentComentariosBinding.inflate(layoutInflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        binding = FragmentComentariosBinding.inflate(layoutInflater, container, false)
 
-		mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
+        mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
 
-		val adapter = ComentarioAdapter(this, mainViewModel)
-		binding.recyclerView.layoutManager = LinearLayoutManager(context)
-		binding.recyclerView.adapter = adapter
-		binding.recyclerView.setHasFixedSize(true)
+        val adapter = ComentarioAdapter(this, mainViewModel)
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.setHasFixedSize(true)
 
-		binding.imageButtonComentar.setOnClickListener {
-			//println("Estou na postagem: "+ mainViewModel.postagemSelecionada?.id)
-			inserirNoBanco()
-		}
+        binding.imageButtonComentar.setOnClickListener {
+            //println("Estou na postagem: "+ mainViewModel.postagemSelecionada?.id)
+            inserirNoBanco()
+        }
 
-		mainViewModel.myComentarioResponse.observe(viewLifecycleOwner){
-			response -> if(response.body() != null){
-				adapter.setList(response.body()!!)
-			}
-		}
+        mainViewModel.myComentarioResponse.observe(viewLifecycleOwner) { response ->
+            if (response.body() != null) {
+                adapter.setList(response.body()!!)
+            }
+        }
 
 
-		return binding.root
-	}
+        return binding.root
+    }
 
-	private fun validarCampos(conteudo: String): Boolean {
-		return (
-				(conteudo.isNotBlank() && conteudo.length in 10..300)
-				)
-	}
+    private fun validarCampos(conteudo: String): Boolean {
+        return (
+                (conteudo.isNotBlank() && conteudo.length in 10..300)
+                )
+    }
 
-	private fun inserirNoBanco() {
+    private fun inserirNoBanco() {
 
-		val conteudo = binding.escrevaComentarioInput.text.toString()
-		val data = LocalDateTime.now().toString()
-		val postagem = Postagem(mainViewModel.postagemSelecionada!!.id, null, null, null, null, null, null)
-		val cadastro = Cadastro(mainViewModel.cadastroVerificado.value?.body()?.id!!.toLong(),null, null, null, null, null, null)
+        val conteudo = binding.escrevaComentarioInput.text.toString()
+        val data = LocalDateTime.now().toString()
+        val postagem = mainViewModel.postagemSelecionada!!
+        val cadastro = mainViewModel.cadastroVerificado.value?.body()
 
-		if (validarCampos(conteudo)) {
-			//if (postagemSelecionada != null) {
-				//val comentario = Comentario()
-				mainViewModel.addComentario(Comentario(0, conteudo, data, postagem, cadastro), mainViewModel.postagemSelecionada!!.id)
-				Toast.makeText(context, "Comentário realizado!", Toast.LENGTH_SHORT).show()
-				binding.escrevaComentarioInput.text?.clear()
-				//mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
-				//findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
-			//}
-		} else {
-			Toast.makeText(context, "Comentário não pode estar em branco!", Toast.LENGTH_SHORT).show()
-		}
-	}
+        if (validarCampos(conteudo)) {
+            if (mainViewModel.postagemSelecionada != null) {
+                val comentario = Comentario(0, conteudo, data, postagem, cadastro!!)
+                mainViewModel.addComentario(comentario, mainViewModel.postagemSelecionada!!.id)
+                Toast.makeText(context, "Comentário realizado!", Toast.LENGTH_SHORT).show()
+                binding.escrevaComentarioInput.text?.clear()
+                //findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
+            }
+        } else {
+            Toast.makeText(context, "Comentário não pode estar em branco!", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
 
-	override fun onComentarioClickListener(comentario: Comentario) {
-		mainViewModel.comentarioSelecionado = comentario
-	}
+    override fun onComentarioClickListener(comentario: Comentario) {
+        mainViewModel.comentarioSelecionado = comentario
+    }
 }
