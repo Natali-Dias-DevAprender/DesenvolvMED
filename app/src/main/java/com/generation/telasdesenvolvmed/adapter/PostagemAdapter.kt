@@ -1,5 +1,7 @@
 package com.generation.telasdesenvolvmed.adapter
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,8 @@ import com.generation.telasdesenvolvmed.model.Postagem
 
 class PostagemAdapter (
 	private val postagemClickListener: PostagemClickListener,
-	val mainViewModel: MainViewModel
+	val mainViewModel: MainViewModel,
+	val context: Context
 		) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
 
 	private var listPostagem = emptyList<Postagem>()
@@ -68,6 +71,10 @@ class PostagemAdapter (
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}
+
+		holder.binding.botaoDeletarPost.setOnClickListener {
+			showAlertDialog(postagem.id)
+		}
 	}
 
 	override fun getItemCount(): Int {
@@ -77,6 +84,18 @@ class PostagemAdapter (
 	fun setList(list: List<Postagem>) {
 		listPostagem = list.sortedByDescending { it.id }
 		notifyDataSetChanged()
+	}
+
+	private fun showAlertDialog(id: Long){
+		AlertDialog.Builder(context)
+			.setTitle("Deletar Postagem")
+			.setMessage("Deseja Excluir a Postagem?")
+			.setPositiveButton("Sim"){
+				_,_ -> mainViewModel.deletaPostagem(id)
+			}
+			.setNegativeButton("Não"){
+				_,_ ->
+			}.show()
 	}
 
 }

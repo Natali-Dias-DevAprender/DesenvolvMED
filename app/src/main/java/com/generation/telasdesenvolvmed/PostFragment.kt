@@ -41,7 +41,7 @@ class PostFragment : Fragment(), PostagemClickListener {
 			mainViewModel.listPostagem()
 		}
 
-		val postagemAdapter = PostagemAdapter(this, mainViewModel)
+		val postagemAdapter = PostagemAdapter(this, mainViewModel, requireContext())
 		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
 		binding.recyclerPostagem.adapter = postagemAdapter
 		binding.recyclerPostagem.setHasFixedSize(true)
