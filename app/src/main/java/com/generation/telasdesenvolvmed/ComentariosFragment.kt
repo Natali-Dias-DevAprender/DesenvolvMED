@@ -30,6 +30,8 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 		// Inflate the layout for this fragment
 		binding = FragmentComentariosBinding.inflate(layoutInflater, container, false)
 
+		carregarDados()
+
 		mainViewModel.listComentario()
 
 		val adapter = ComentarioAdapter(this, mainViewModel)
@@ -67,6 +69,10 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 		} else {
 			Toast.makeText(context, "Comentário não pode estar em branco!", Toast.LENGTH_SHORT).show()
 		}
+	}
+
+	private fun carregarDados() {
+		postagemSelecionada = mainViewModel.postagemSelecionada
 	}
 
 	override fun onComentarioClickListener(comentario: Comentario) {
