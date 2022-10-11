@@ -256,4 +256,15 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun deletaComentario(id: Long, idPostagem: Long){
+        viewModelScope.launch {
+            try{
+                repository.deletaComentario(id)
+                listComentario(idPostagem)
+            } catch (e: Exception){
+                Log.d("Erro", e.message.toString())
+            }
+        }
+    }
+
 }
