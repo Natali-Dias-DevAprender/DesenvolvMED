@@ -85,11 +85,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun listComentario() {
+    fun listComentario(id: Long) {
         viewModelScope.launch {
             try {
 
-                val response = repository.listComentario()
+                val response = repository.listComentario(id)
                 _myComentarioResponse.value = response
 
             } catch (e: Exception) {
@@ -98,12 +98,11 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun addComentario(comentario: Comentario) {
+    fun addComentario(comentario: Comentario, id: Long) {
         viewModelScope.launch {
             try {
-
                 repository.addComentario(comentario)
-
+                listComentario(id)
             } catch (e: Exception) {
                 Log.d("Erro", e.message.toString())
             }
@@ -242,6 +241,27 @@ class MainViewModel @Inject constructor(
                 repository.deletaPostagem(id)
                 listPostagem()
             } catch (e: Exception) {
+                Log.d("Erro", e.message.toString())
+            }
+        }
+    }
+
+    fun updateComentario(comentario: Comentario){
+        viewModelScope.launch {
+            try{
+                repository.updateComentario(comentario)
+            } catch (e: Exception){
+                Log.d("Erro", e.message.toString())
+            }
+        }
+    }
+
+    fun deletaComentario(id: Long, idPostagem: Long){
+        viewModelScope.launch {
+            try{
+                repository.deletaComentario(id)
+                listComentario(idPostagem)
+            } catch (e: Exception){
                 Log.d("Erro", e.message.toString())
             }
         }

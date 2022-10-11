@@ -27,7 +27,7 @@ class EditarComentarioFragment : Fragment() {
 		// Inflate the layout for this fragment
 		binding = FragmentEditarComentarioBinding.inflate(layoutInflater, container, false)
 
-		mainViewModel.comentarioSelecionado
+		comentarioSelecionado = mainViewModel.comentarioSelecionado
 
 		binding.imageButtonComentar.setOnClickListener {
 			inserirNoBanco()
@@ -46,7 +46,7 @@ class EditarComentarioFragment : Fragment() {
 
 		val conteudo = binding.escrevaComentarioInput.text.toString()
 		val data = LocalDateTime.now().toString()
-		val postagem = postagemSelecionada!!
+		val postagem = mainViewModel.postagemSelecionada!!
 		val cadastro = mainViewModel.cadastroVerificado.value?.body()
 
 		if (validarCampos(conteudo)) {
@@ -54,14 +54,14 @@ class EditarComentarioFragment : Fragment() {
 			if (comentarioSelecionado != null) {
 				salvar = "Comentário editado!"
 				val comentario = Comentario(comentarioSelecionado?.id!!, conteudo, data, postagem, cadastro!!)
-				mainViewModel.addComentario(comentario)
+				mainViewModel.updateComentario(comentario)
 				Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
 				findNavController().navigate(R.id.action_editarComentarioFragment_to_comentariosFragment)
-
 			} else {
 				salvar = "Comentário não pode estar em branco!"
 				Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
 			}
+
 		}
 
 

@@ -74,16 +74,6 @@
             tools:text="Titulo da Postagem" />
 
         <TextView
-            android:id="@+id/linkAnexo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="#000000"
-            tools:text="Link de Anexo" />
-
-        <TextView
             android:id="@+id/conteudoPost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +83,12 @@
             android:justificationMode="inter_word"
             android:textColor="#000000"
             tools:text="Conteudo da Postagem" />
+
+        <ImageView
+            android:id="@+id/imagePostagem"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            tools:srcCompat="@drawable/bg_text_input" />
 
         <Button
             android:id="@+id/buttonComentarios"

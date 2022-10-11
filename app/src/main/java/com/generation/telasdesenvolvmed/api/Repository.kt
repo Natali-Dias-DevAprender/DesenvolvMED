@@ -7,7 +7,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class Repository @Inject constructor(private val loginDao: LoginDao){
+class Repository @Inject constructor(private val loginDao: LoginDao) {
 
     suspend fun listTema(): Response<List<Tema>> {
         return RetrofitInstance.api.listTema()
@@ -25,8 +25,8 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
         return RetrofitInstance.api.updatePostagem(postagem)
     }
 
-    suspend fun listComentario(): Response<List<Comentario>> {
-        return RetrofitInstance.api.listComentario()
+    suspend fun listComentario(id: Long): Response<List<Comentario>> {
+        return RetrofitInstance.api.listComentario(id)
     }
 
     suspend fun addComentario(comentario: Comentario): Response<Comentario> {
@@ -45,7 +45,7 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
         return RetrofitInstance.api.getCadastroMedicoByEmail(email)
     }
 
-    suspend fun getCadastroByEmail(email: String): Response<Cadastro>{
+    suspend fun getCadastroByEmail(email: String): Response<Cadastro> {
         return RetrofitInstance.api.getCadastroByEmail(email)
     }
 
@@ -67,15 +67,19 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
 
     val selectLogin = loginDao.selectLogin()
 
-    fun addLogin(login: Login){
+    fun addLogin(login: Login) {
         loginDao.addLogin(login)
     }
 
-    fun nukeTable(){
+    fun nukeTable() {
         loginDao.nukeTable()
     }
 
     suspend fun deletaPostagem(id: Long): Response<Postagem> {
         return RetrofitInstance.api.deletaPostagem(id)
+    }
+
+    suspend fun deletaComentario(id: Long): Response<Comentario> {
+        return  RetrofitInstance.api.deletaComentario(id)
     }
 }
