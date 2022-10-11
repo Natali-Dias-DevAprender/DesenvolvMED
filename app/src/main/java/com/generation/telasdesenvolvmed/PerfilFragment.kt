@@ -26,6 +26,12 @@ class PerfilFragment : Fragment() {
     ): View? {
         binding = FragmentPerfilBinding.inflate(layoutInflater, container, false)
 
+        mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
+            if (response.body() != null) {
+                binding.addPostButton.visibility = View.INVISIBLE
+            }
+        }
+
         getDados()
 
         binding.botaoSobre.setOnClickListener {

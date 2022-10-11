@@ -53,8 +53,8 @@ class PostagemAdapter (
 			.placeholder(R.drawable.bg_text_input)
 			.into(holder.binding.imagePostagem)
 
-
-		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong()
+	/*
+		val idProcurado = mainViewModel.medicoLogado.value?.body()?.id?
 
 
 		if(idProcurado != postagem.medico.cadastro.id) {
@@ -64,8 +64,9 @@ class PostagemAdapter (
 			holder.binding.botaoEditarPost.visibility = View.VISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
 		}
-
-		/*val emailProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
+		*/
+		/*
+		val emailProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
 
 		if(emailProcurado != postagem.medico.cadastro.email) {
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
@@ -74,6 +75,16 @@ class PostagemAdapter (
 			holder.binding.botaoEditarPost.visibility = View.VISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
 		}*/
+
+		val crmProcurado = mainViewModel.medicoLogado.value?.body()?.crm.toString()
+
+		if(crmProcurado != postagem.medico.crm) {
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		} else {
+			holder.binding.botaoEditarPost.visibility = View.VISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
+		}
 
 		holder.binding.buttonComentarios.setOnClickListener {
 			postagemClickListener.onPostagemParaComentarioClickListener(postagem)

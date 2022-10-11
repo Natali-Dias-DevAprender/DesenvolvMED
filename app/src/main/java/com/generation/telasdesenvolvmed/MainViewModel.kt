@@ -36,6 +36,7 @@ class MainViewModel @Inject constructor(
     var medicoLogado = MutableLiveData<Response<Medico>>()
 
     var cadastroVerificado = MutableLiveData<Response<Cadastro>>()
+    var cadastroEmailAtivo = MutableLiveData<Response<Cadastro>>()
 
     val selectLogin: LiveData<List<Login>>
 
@@ -200,6 +201,17 @@ class MainViewModel @Inject constructor(
             try {
                 val response = repository.getCadastroByEmail(email)
                 cadastroVerificado.value = response
+            } catch (e: Exception) {
+                Log.d("Erro", e.message.toString())
+            }
+        }
+    }
+
+    fun getCadastroAtualizaEmail(email: String){
+        viewModelScope.launch {
+            try {
+                val response = repository.getCadastroByEmail(email)
+                cadastroEmailAtivo.value = response
             } catch (e: Exception) {
                 Log.d("Erro", e.message.toString())
             }

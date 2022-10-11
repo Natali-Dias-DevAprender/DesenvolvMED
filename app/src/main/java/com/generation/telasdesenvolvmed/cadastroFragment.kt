@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.generation.telasdesenvolvmed.data.Login
 import com.generation.telasdesenvolvmed.databinding.FragmentCadastroBinding
 import com.generation.telasdesenvolvmed.model.MedicoCadastro
 import com.generation.telasdesenvolvmed.model.PacienteCadastro
@@ -110,11 +111,18 @@ class cadastroFragment : Fragment() {
                     MedicoCadastro(0, cpf, nome, sobrenome, senha, email, crm),
                     email
                 )
-                mainViewModel.viewModelScope.launch{
-                    delay(2000)
+
+                //mainViewModel.viewModelScope.launch{
+                    //delay(2000)
                     mainViewModel.getCadastroByEmail(email)
+                //}
+                mainViewModel.addLogin(Login(0, email, senha))
+                mainViewModel.medicoLogado.observe(viewLifecycleOwner){
+                    if(mainViewModel.medicoLogado.value?.body()?.crm != null){
+                        findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+                    }
                 }
-                findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+
             } else if (!emailNovo) {
                 emailNovo = true
                 mainViewModel.getCadastro("")
@@ -171,11 +179,18 @@ class cadastroFragment : Fragment() {
                     PacienteCadastro(0, cpf, nome, sobrenome, senha, email, convenio),
                     email
                 )
-                mainViewModel.viewModelScope.launch{
-                    delay(2000)
+                //mainViewModel.viewModelScope.launch{
+                    //delay(2000)
                     mainViewModel.getCadastroByEmail(email)
+                    //delay(1000)
+                //}
+                mainViewModel.addLogin(Login(0, email, senha))
+                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                    if(mainViewModel.cadastroVerificado.value?.body()?.cpf != null){
+                        findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+                    }
                 }
-                findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+                //findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
             } else if (!emailNovo) {
                 emailNovo = true
                 mainViewModel.getCadastro("")

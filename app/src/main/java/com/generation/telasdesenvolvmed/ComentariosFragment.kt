@@ -48,6 +48,9 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
             }
         }
 
+        binding.retornoDosComentarios.setOnClickListener {
+            findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
+        }
 
         return binding.root
     }
