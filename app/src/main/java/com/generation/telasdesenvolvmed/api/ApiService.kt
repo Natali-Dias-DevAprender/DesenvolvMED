@@ -64,4 +64,7 @@ interface ApiService {
         @Body medico: MedicoCadastro
     ): Response<MedicoCadastro>
 
+    @DELETE("postagem/{id}")
+    suspend fun deletaPostagem(@Path("id") id: Long): Response<Postagem>
+
 }

@@ -1,5 +1,7 @@
 package com.generation.telasdesenvolvmed.adapter
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,8 @@ import com.generation.telasdesenvolvmed.model.Postagem
 
 class PostagemAdapter (
 	private val postagemClickListener: PostagemClickListener,
-	val mainViewModel: MainViewModel
+	val mainViewModel: MainViewModel,
+	val context: Context
 		) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
 
 	private var listPostagem = emptyList<Postagem>()
@@ -34,7 +37,9 @@ class PostagemAdapter (
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
 
-		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!
+
+		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong()
+
 
 		if(idProcurado != postagem.medico.cadastro.id) {
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
@@ -43,6 +48,16 @@ class PostagemAdapter (
 			holder.binding.botaoEditarPost.visibility = View.VISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
 		}
+
+		/*val emailProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
+
+		if(emailProcurado != postagem.medico.cadastro.email) {
+			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+		} else {
+			holder.binding.botaoEditarPost.visibility = View.VISIBLE
+			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
+		}*/
 
 		holder.binding.buttonComentarios.setOnClickListener {
 			postagemClickListener.onPostagemParaComentarioClickListener(postagem)
@@ -56,6 +71,10 @@ class PostagemAdapter (
 			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
 			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
 		}
+
+		holder.binding.botaoDeletarPost.setOnClickListener {
+			showAlertDialog(postagem.id)
+		}
 	}
 
 	override fun getItemCount(): Int {
@@ -65,6 +84,18 @@ class PostagemAdapter (
 	fun setList(list: List<Postagem>) {
 		listPostagem = list.sortedByDescending { it.id }
 		notifyDataSetChanged()
+	}
+
+	private fun showAlertDialog(id: Long){
+		AlertDialog.Builder(context)
+			.setTitle("Deletar postagem")
+			.setMessage("Deseja realmente excluir a postagem?")
+			.setPositiveButton("Sim"){
+				_,_ -> mainViewModel.deletaPostagem(id)
+			}
+			.setNegativeButton("Não"){
+				_,_ ->
+			}.show()
 	}
 
 }

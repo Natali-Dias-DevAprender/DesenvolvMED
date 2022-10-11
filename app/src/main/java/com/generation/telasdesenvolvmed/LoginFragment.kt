@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.generation.telasdesenvolvmed.data.Login
 import com.generation.telasdesenvolvmed.databinding.FragmentLoginBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class LoginFragment : Fragment() {
@@ -99,7 +102,13 @@ class LoginFragment : Fragment() {
                                 mainViewModel.cadastroVerificado.value?.body()!!.email,
                                 mainViewModel.cadastroVerificado.value?.body()!!.senha)
                         )
-                        findNavController().navigate(R.id.action_loginFragment_to_postFragment)
+                        mainViewModel.selectLogin.observe(viewLifecycleOwner){
+                            response -> if(response.size > 0){
+                            println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
+                                findNavController().navigate(R.id.action_loginFragment_to_postFragment)
+                            }
+                        }
+
                     } else {
                         Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
                     }

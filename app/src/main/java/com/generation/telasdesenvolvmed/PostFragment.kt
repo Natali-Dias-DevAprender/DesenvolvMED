@@ -41,7 +41,7 @@ class PostFragment : Fragment(), PostagemClickListener {
 			mainViewModel.listPostagem()
 		}
 
-		val postagemAdapter = PostagemAdapter(this, mainViewModel)
+		val postagemAdapter = PostagemAdapter(this, mainViewModel, requireContext())
 		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
 		binding.recyclerPostagem.adapter = postagemAdapter
 		binding.recyclerPostagem.setHasFixedSize(true)
@@ -56,6 +56,10 @@ class PostFragment : Fragment(), PostagemClickListener {
 				postagemAdapter.setList(response.body()!!)
 				binding.swipeToRefresh.isRefreshing = false
 			}
+		}
+
+		binding.perfilButton.setOnClickListener{
+			findNavController().navigate(R.id.action_postFragment_to_perfilFragment)
 		}
 
 		return binding.root

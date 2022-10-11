@@ -66,4 +66,21 @@
         <item name="DoencasAutoimunes" type="string">Doenças auto imunes</item>
         <item name="DSTS" type="string">DSTS</item>
     </string-array>
+
+    <string-array name="opcoes">
+        <item name="nomeOp" type="string">Nome</item>
+        <item name="sobrenomeOp" type="string">Sobrenome</item>
+        <item name="emailOp" type="string">E-mail</item>
+        <item name="senhaOp" type="string">Senha</item>
+    </string-array>
+
+    <string-array name="opcoes_paciente">
+        <item name="nomeP" type="string">Nome</item>
+        <item name="sobrenomep" type="string">Sobrenome</item>
+        <item name="emailp" type="string">E-mail</item>
+        <item name="senhap" type="string">Senha</item>
+        <item name="conveniop" type="string">Convênio</item>
+    </string-array>
+
+
 </resources>

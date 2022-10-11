@@ -75,4 +75,7 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
         loginDao.nukeTable()
     }
 
+    suspend fun deletaPostagem(id: Long): Response<Postagem> {
+        return RetrofitInstance.api.deletaPostagem(id)
+    }
 }

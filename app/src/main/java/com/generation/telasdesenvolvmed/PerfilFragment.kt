@@ -5,55 +5,85 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import androidx.room.RoomDatabase
+import com.generation.telasdesenvolvmed.data.LoginDatabase
+import com.generation.telasdesenvolvmed.databinding.FragmentPerfilBinding
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PerfilFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PerfilFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var binding: FragmentPerfilBinding
+    private val mainViewModel : MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_perfil, container, false)
-    }
+        binding = FragmentPerfilBinding.inflate(layoutInflater, container, false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PerfilFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PerfilFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        getDados()
+
+        binding.botaoSobre.setOnClickListener {
+            findNavController().navigate(R.id.action_perfilFragment_to_sobreFragment)
+        }
+
+        binding.botaoSuporte.setOnClickListener {
+            findNavController().navigate(R.id.action_perfilFragment_to_suporteFragment)
+        }
+
+        binding.botaoDadosPessoais.setOnClickListener {
+            findNavController().navigate(R.id.action_perfilFragment_to_dadosPessoaisFragment)
+        }
+
+        binding.buttonLogout.setOnClickListener {
+            mainViewModel.nukeLogin()
+
+            mainViewModel.selectLogin.observe(viewLifecycleOwner){
+                response -> if(response.size == 0){
+                println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
+                mainViewModel.cadastroVerificado.value?.body()?.email = ""
+                mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
+                mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
+
+                mainViewModel.getCadastroByEmail("")
+                findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+                /*
+                mainViewModel.viewModelScope.launch {
+                    delay(3000)
+                    mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                            response -> if (response.body() == null) {
+                        findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+                    }
+                    }
+                }*/
                 }
             }
+
+
+        }
+
+
+        return binding.root
     }
+
+    private fun getDados(){
+        binding.textPerfilNome.text = mainViewModel.cadastroVerificado.value?.body()?.nome.toString() + " " + mainViewModel.cadastroVerificado.value?.body()?.sobrenome.toString()
+        binding.textPerfilCpf.text = mainViewModel.cadastroVerificado.value?.body()?.cpf.toString()
+        binding.textPerfilEmail.text = mainViewModel.cadastroVerificado.value?.body()?.email.toString()
+
+        if(mainViewModel.medicoLogado.value?.body()?.crm == null){
+            binding.textExclusivo.text = "Convenio: "
+            binding.textPerfilExclusivo.text = mainViewModel.pacienteLogado.value?.body()?.convenio.toString()
+        } else{
+            binding.textExclusivo.text = "CRM: "
+            binding.textPerfilExclusivo.text = mainViewModel.medicoLogado.value?.body()?.crm.toString()
+        }
+
+    }
+
 }
