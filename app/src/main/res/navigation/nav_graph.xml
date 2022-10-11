@@ -173,6 +173,11 @@
             app:destination="@id/inicialFragment"
             app:popUpTo="@id/inicialFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_perfilFragment_to_criarPostFragment"
+            app:destination="@id/criarPostFragment"
+            app:popUpTo="@id/criarPostFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/dadosPessoaisFragment"

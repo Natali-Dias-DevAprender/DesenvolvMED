@@ -64,25 +64,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
         android:background="#00FFFFFF"
         android:contentDescription="@string/bot_o_de_home"
         android:src="@drawable/ic_home_48"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPostagem"
+        app:layout_constraintTop_toTopOf="@+id/navbar"
+        app:layout_constraintVertical_bias="0.448"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
     <ImageButton
         android:id="@+id/perfilButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="40dp"
         android:background="#00FFFFFF"
         android:contentDescription="@string/botao_de_perfil"
         android:src="@drawable/ic_perfil_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerPostagem"
+        app:layout_constraintTop_toTopOf="@+id/navbar"
+        app:layout_constraintVertical_bias="0.448"
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

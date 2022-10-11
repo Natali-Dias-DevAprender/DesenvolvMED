@@ -96,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:text="@string/comentarios"
-            android:textColor="#3E2723" />
+            android:textColor="@color/white" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>
