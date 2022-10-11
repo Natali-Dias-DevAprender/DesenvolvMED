@@ -33,7 +33,7 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 
         mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
 
-        val adapter = ComentarioAdapter(this, mainViewModel)
+        val adapter = ComentarioAdapter(this, mainViewModel, requireContext())
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.setHasFixedSize(true)
@@ -82,5 +82,6 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 
     override fun onComentarioClickListener(comentario: Comentario) {
         mainViewModel.comentarioSelecionado = comentario
+        findNavController().navigate(R.id.editarComentarioFragment)
     }
 }
