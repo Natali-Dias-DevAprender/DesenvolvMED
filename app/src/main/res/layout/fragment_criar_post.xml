@@ -13,6 +13,23 @@
         android:layout_height="wrap_content"
         tools:context=".CriarPostFragment">
 
+        <ImageButton
+            android:id="@+id/botaoVoltarFeed"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="32dp"
+            android:background="@color/white"
+            android:contentDescription="@string/botao_de_voltarCadastro"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_logo"
+            app:layout_constraintHorizontal_bias="0.016"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dm_toolbar"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
+
         <Button
             android:id="@+id/botaoPublicar"
             android:layout_width="0dp"
@@ -47,16 +64,6 @@
             app:layout_constraintTop_toBottomOf="@+id/postCaixa"
             app:srcCompat="@drawable/clip"
             tools:ignore="ImageContrastCheck" />
-
-        <ImageView
-            android:id="@+id/botaoVoltarFeed"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="30dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dm_toolbar"
-            app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
 
         <Spinner
             android:id="@+id/selecTemas"

@@ -10,6 +10,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.generation.telasdesenvolvmed.databinding.FragmentDadosPessoaisBinding
 import com.generation.telasdesenvolvmed.model.MedicoCadastro
 import com.generation.telasdesenvolvmed.model.PacienteCadastro
@@ -53,6 +54,10 @@ class DadosPessoaisFragment : Fragment() {
 
         binding.botaoAlterar.setOnClickListener {
             atualizaCadastro()
+        }
+
+        binding.botaoVoltarDadosPessoais.setOnClickListener {
+            findNavController().navigate(R.id.action_dadosPessoaisFragment_to_perfilFragment)
         }
 
         return binding.root

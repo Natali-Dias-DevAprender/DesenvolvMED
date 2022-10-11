@@ -40,6 +40,14 @@ class PerfilFragment : Fragment() {
             findNavController().navigate(R.id.action_perfilFragment_to_dadosPessoaisFragment)
         }
 
+        binding.homeButton.setOnClickListener {
+            findNavController().navigate(R.id.action_perfilFragment_to_postFragment)
+        }
+
+        binding.addPostButton.setOnClickListener {
+            findNavController().navigate(R.id.action_perfilFragment_to_criarPostFragment)
+        }
+
         binding.buttonLogout.setOnClickListener {
             mainViewModel.nukeLogin()
 

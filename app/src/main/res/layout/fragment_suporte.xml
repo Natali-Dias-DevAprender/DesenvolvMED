@@ -11,6 +11,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageButton
+            android:id="@+id/botaoVoltarSuporte"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="48dp"
+            android:background="@color/white"
+            android:contentDescription="@string/botao_de_voltarCadastro"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            app:layout_constraintHorizontal_bias="0.016"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dm_toolbar"
+            app:srcCompat="@drawable/ic_baseline_arrow_back_24"
+            tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,TouchTargetSizeCheck" />
+
         <include
             android:id="@+id/dm_toolbar"
             layout="@layout/toolbar" />
