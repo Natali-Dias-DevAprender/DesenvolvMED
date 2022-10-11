@@ -34,7 +34,6 @@ class PostagemAdapter (
 		holder.binding.conteudoPost.text = postagem.descricao
 		holder.binding.linkAnexo.text = postagem.anexo
 
-
 		val idProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!
 
 		if(idProcurado != postagem.medico.cadastro.id) {
