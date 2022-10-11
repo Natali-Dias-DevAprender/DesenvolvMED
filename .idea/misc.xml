@@ -6,6 +6,11 @@
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Cadastro/DesenvolvMed/app/src/main/res/layout/fragment_cadastro.xml" value="0.18" />
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Cadastro/DesenvolvMed/app/src/main/res/layout/fragment_inicial.xml" value="0.2" />
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Cadastro/DesenvolvMed/app/src/main/res/layout/fragment_tela_de_apresentacao.xml" value="0.2441123188405797" />
+        <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Edicao/DesenvolvMed/app/src/main/res/layout/card_layout.xml" value="0.18" />
+        <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Edicao/DesenvolvMed/app/src/main/res/layout/fragment_comentarios.xml" value="0.2" />
+        <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Edicao/DesenvolvMed/app/src/main/res/layout/fragment_detalhes_postagem.xml" value="0.14351851851851852" />
+        <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Edicao/DesenvolvMed/app/src/main/res/layout/fragment_post.xml" value="0.14351851851851852" />
+        <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Edicao/DesenvolvMed/app/src/main/res/layout/item_de_comentarios.xml" value="0.14351851851851852" />
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Telas Natali/DesenvolvMed/app/src/main/res/layout/activity_main.xml" value="0.28532608695652173" />
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Telas Natali/DesenvolvMed/app/src/main/res/layout/card_layout.xml" value="0.28532608695652173" />
         <entry key="..\:/Murilo/Desktop/Projetos Generation/Projeto Integrador - Telas Natali/DesenvolvMed/app/src/main/res/layout/comentarios_de_postagens.xml" value="0.28532608695652173" />
@@ -64,14 +69,6 @@
         <entry key="..\:/Users/User/Desktop/DesenvolvMed/app/src/main/res/layout/fragment_login.xml" value="0.2" />
         <entry key="..\:/Users/User/Desktop/DesenvolvMed/app/src/main/res/layout/fragment_tela_de_apresentacao.xml" value="0.2" />
         <entry key="..\:/Users/User/Desktop/DesenvolvMed/app/src/main/res/layout/item_de_comentarios.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_cadastro.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_comentarios.xml" value="0.22" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_detalhes_postagem.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_editar_comentario.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_inicial.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_login.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/fragment_perfil.xml" value="0.2" />
-        <entry key="..\:/Users/User/Desktop/Telas_Natali/DesenvolvMed/app/src/main/res/layout/item_de_comentarios.xml" value="0.2" />
         <entry key="..\:/Users/admin/Desktop/Coments/DesenvolvMed/app/src/main/res/layout/card_layout.xml" value="0.33" />
         <entry key="..\:/Users/admin/Desktop/Coments/DesenvolvMed/app/src/main/res/layout/criar_comentario.xml" value="0.33" />
         <entry key="..\:/Users/admin/Desktop/Coments/DesenvolvMed/app/src/main/res/layout/fragment_criar_comentario.xml" value="0.25" />

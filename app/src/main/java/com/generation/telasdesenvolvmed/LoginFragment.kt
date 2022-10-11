@@ -99,8 +99,9 @@ class LoginFragment : Fragment() {
                         ).show()
                         mainViewModel.addLogin(
                             Login(0,
-                                mainViewModel.cadastroVerificado.value?.body()!!.email,
-                                mainViewModel.cadastroVerificado.value?.body()!!.senha)
+                                mainViewModel.cadastroVerificado.value?.body()!!.email!!,
+                                mainViewModel.cadastroVerificado.value?.body()!!.senha!!
+                            )
                         )
                         mainViewModel.selectLogin.observe(viewLifecycleOwner){
                             response -> if(response.size > 0){

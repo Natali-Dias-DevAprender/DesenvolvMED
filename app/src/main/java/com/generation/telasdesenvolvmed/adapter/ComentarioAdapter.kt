@@ -28,9 +28,10 @@ class ComentarioAdapter(
 	override fun onBindViewHolder(holder: ComentarioViewHolder, position: Int) {
 		val comentario = listComentario[position]
 
-		holder.binding.textNome.text = comentario.cadastro.nome
+		holder.binding.textNome.text = "teste-nome"//comentario.cadastro.nome
 		holder.binding.textConteudo.text = comentario.conteudo
 
+		/*
 		holder.binding.botaoEditarComentario.setOnClickListener {
 			comentarioClickListener.onComentarioClickListener(comentario)
 		}
@@ -43,7 +44,7 @@ class ComentarioAdapter(
 		} else {
 			holder.binding.botaoEditarComentario.visibility = View.VISIBLE
 			holder.binding.botaoDeletarComentario.visibility = View.VISIBLE
-		}
+		}*/
 	}
 
 	override fun getItemCount(): Int {

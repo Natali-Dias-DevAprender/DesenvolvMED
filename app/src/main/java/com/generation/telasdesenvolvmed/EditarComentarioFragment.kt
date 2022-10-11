@@ -54,7 +54,7 @@ class EditarComentarioFragment : Fragment() {
 			if (comentarioSelecionado != null) {
 				salvar = "Comentário editado!"
 				val comentario = Comentario(comentarioSelecionado?.id!!, conteudo, data, postagem, cadastro!!)
-				mainViewModel.addComentario(comentario)
+				mainViewModel.updateComentario(comentario)
 				Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
 				findNavController().navigate(R.id.action_editarComentarioFragment_to_comentariosFragment)
 

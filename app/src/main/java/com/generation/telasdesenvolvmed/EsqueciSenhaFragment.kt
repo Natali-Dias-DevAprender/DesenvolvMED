@@ -60,10 +60,10 @@ class EsqueciSenhaFragment : Fragment() {
                     MedicoCadastro(
                         mainViewModel.medicoLogado.value?.body()?.id!!.toLong(),
                         cpf,
-                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.nome,
-                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.sobrenome,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.nome!!,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.sobrenome!!,
                         senha,
-                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.email,
+                        mainViewModel.medicoLogado.value?.body()?.cadastro!!.email!!,
                         mainViewModel.medicoLogado.value?.body()?.crm!!
                     ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
                 )
@@ -82,10 +82,10 @@ class EsqueciSenhaFragment : Fragment() {
                     PacienteCadastro(
                         mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
                         cpf,
-                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.nome,
-                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.sobrenome,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.nome!!,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.sobrenome!!,
                         senha,
-                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.email,
+                        mainViewModel.pacienteLogado.value?.body()?.cadastro!!.email!!,
                         mainViewModel.pacienteLogado.value?.body()?.convenio!!
                     ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                 )

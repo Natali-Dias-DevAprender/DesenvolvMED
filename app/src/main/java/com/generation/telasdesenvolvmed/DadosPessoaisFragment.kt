@@ -103,6 +103,7 @@ class DadosPessoaisFragment : Fragment() {
                 }
             } else if (binding.spinnerOpcoesP.selectedItem.toString() == "E-mail") {
                 if(parametro.isNotBlank() && parametro.length in 1..255){
+                    val emailAntigo = mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                     mainViewModel.attPaciente(PacienteCadastro(
                         mainViewModel.pacienteLogado.value?.body()?.id!!.toLong(),
                         mainViewModel.pacienteLogado.value?.body()?.cadastro?.cpf.toString(),

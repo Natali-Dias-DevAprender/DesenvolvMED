@@ -25,8 +25,8 @@ class Repository @Inject constructor(private val loginDao: LoginDao){
         return RetrofitInstance.api.updatePostagem(postagem)
     }
 
-    suspend fun listComentario(): Response<List<Comentario>> {
-        return RetrofitInstance.api.listComentario()
+    suspend fun listComentario(id: Long): Response<List<Comentario>> {
+        return RetrofitInstance.api.listComentario(id)
     }
 
     suspend fun addComentario(comentario: Comentario): Response<Comentario> {
