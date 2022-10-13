@@ -35,11 +35,5 @@ abstract class LoginDatabase : RoomDatabase(){
                 return instance
             }
         }
-
-        fun clearTables(){
-            GlobalScope.launch(Dispatchers.IO){
-                this@Companion.clearTables()
-            }
-        }
     }
 }

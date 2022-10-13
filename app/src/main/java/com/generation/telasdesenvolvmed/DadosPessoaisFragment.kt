@@ -1,13 +1,11 @@
 package com.generation.telasdesenvolvmed
 
 import android.os.Bundle
-import android.security.identity.CredentialDataResult
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.viewModelScope
@@ -29,8 +27,8 @@ class DadosPessoaisFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentDadosPessoaisBinding.inflate(layoutInflater, container, false)
 
+        binding = FragmentDadosPessoaisBinding.inflate(layoutInflater, container, false)
 
         defineSpinner()
 
@@ -40,7 +38,6 @@ class DadosPessoaisFragment : Fragment() {
             }
 
             override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
             }
 
         }
@@ -52,7 +49,6 @@ class DadosPessoaisFragment : Fragment() {
                 }
 
                 override fun onNothingSelected(p0: AdapterView<*>?) {
-                    TODO("Not yet implemented")
                 }
 
             }
@@ -77,7 +73,7 @@ class DadosPessoaisFragment : Fragment() {
 
     private fun atualizaCadastro() {
 
-        var parametro = binding.textDadoAlterar.text.toString()
+        val parametro = binding.textDadoAlterar.text.toString()
         binding.textDadoAlterar.text.clear()
 
         if (mainViewModel.medicoLogado.value?.body()?.crm == null) {
@@ -94,10 +90,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
                         ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Nome atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nome atualizado com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.nome = parametro
                 } else {
-                    Toast.makeText(context, "Nome Incorreto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nome incorreto!", Toast.LENGTH_SHORT).show()
                 }
             } else if (binding.spinnerOpcoesP.selectedItem.toString() == "Sobrenome") {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
@@ -112,10 +109,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
                         ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Sobrenome atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Sobrenome atualizado com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.sobrenome = parametro
                 } else {
-                    Toast.makeText(context, "Sobrenome Incorreto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Sobrenome incorreto!", Toast.LENGTH_SHORT).show()
                 }
             } else if (binding.spinnerOpcoesP.selectedItem.toString() == "E-mail") {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
@@ -136,8 +134,8 @@ class DadosPessoaisFragment : Fragment() {
                                 ), parametro
                             )
                             mainViewModel.nukeLogin()
-                            mainViewModel.selectLogin.observe(viewLifecycleOwner) { response ->
-                                if (response.size == 0) {
+                            mainViewModel.selectLogin.observe(viewLifecycleOwner) { responseEmail ->
+                                if (responseEmail.isEmpty()) {
                                     mainViewModel.addLogin(
                                         Login(
                                             0,
@@ -147,7 +145,7 @@ class DadosPessoaisFragment : Fragment() {
                                     )
                                     Toast.makeText(
                                         context,
-                                        "E-mail Atualizado com sucesso!",
+                                        "E-mail atualizado com sucesso!",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     mainViewModel.cadastroVerificado.value?.body()?.email =
@@ -155,7 +153,7 @@ class DadosPessoaisFragment : Fragment() {
                                 }
                             }
                         } else {
-                            Toast.makeText(context, "E-mail Invalido", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "E-mail inválido!", Toast.LENGTH_SHORT).show()
                         }
                         println(response)
                     }
@@ -174,10 +172,11 @@ class DadosPessoaisFragment : Fragment() {
                             parametro
                         ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Convenio atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Convênio atualizado com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.pacienteLogado.value?.body()?.convenio = parametro
                 } else {
-                    Toast.makeText(context, "Convenio Incorreto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Convênio incorreto!", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
@@ -192,10 +191,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.pacienteLogado.value?.body()?.convenio.toString(),
                         ), mainViewModel.pacienteLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Senha atualizada com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.senha = parametro
                 } else {
-                    Toast.makeText(context, "Senha Invalida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Senha invalida!", Toast.LENGTH_SHORT).show()
                 }
             }
         } else {
@@ -212,10 +212,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.medicoLogado.value?.body()?.crm.toString(),
                         ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Nome atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nome atualizado com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.nome = parametro
                 } else {
-                    Toast.makeText(context, "Nome Incorreto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Nome incorreto!", Toast.LENGTH_SHORT).show()
                 }
             } else if (binding.spinnerOpcoes.selectedItem.toString() == "Sobrenome") {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
@@ -230,10 +231,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.medicoLogado.value?.body()?.crm.toString(),
                         ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Sobrenome atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Sobrenome atualizado com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.sobrenome = parametro
                 } else {
-                    Toast.makeText(context, "Sobrenome Incorreto", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Sobrenome incorreto!", Toast.LENGTH_SHORT).show()
                 }
             } else if (binding.spinnerOpcoes.selectedItem.toString() == "E-mail") {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
@@ -241,8 +243,7 @@ class DadosPessoaisFragment : Fragment() {
                         mainViewModel.getCadastroAtualizaEmail(parametro)
                         delay(2000)
                     }
-                    mainViewModel.cadastroEmailAtivo.observe(viewLifecycleOwner) {
-                            response ->
+                    mainViewModel.cadastroEmailAtivo.observe(viewLifecycleOwner) { response ->
                         if (response.code() == 404) {
                             mainViewModel.attMedico(
                                 MedicoCadastro(
@@ -256,8 +257,8 @@ class DadosPessoaisFragment : Fragment() {
                                 ), parametro
                             )
                             mainViewModel.nukeLogin()
-                            mainViewModel.selectLogin.observe(viewLifecycleOwner) { response ->
-                                if (response.size == 0) {
+                            mainViewModel.selectLogin.observe(viewLifecycleOwner) { responseEmail ->
+                                if (responseEmail.isEmpty()) {
                                     mainViewModel.addLogin(
                                         Login(
                                             0,
@@ -267,7 +268,7 @@ class DadosPessoaisFragment : Fragment() {
                                     )
                                     Toast.makeText(
                                         context,
-                                        "E-mail Atualizado com sucesso!",
+                                        "E-mail atualizado com sucesso!",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     mainViewModel.cadastroVerificado.value?.body()?.email =
@@ -275,31 +276,12 @@ class DadosPessoaisFragment : Fragment() {
                                 }
                             }
                         } else {
-                            Toast.makeText(context, "E-mail Invalido", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "E-mail inválido!", Toast.LENGTH_SHORT).show()
                         }
                         println(response)
                     }
                 }
-            }
-
-                /*
-                if (parametro.isNotBlank() && parametro.length in 1..255) {
-                    mainViewModel.attMedico(
-                        MedicoCadastro(
-                            mainViewModel.medicoLogado.value?.body()?.cadastro?.id!!.toLong(),
-                            mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString(),
-                            mainViewModel.medicoLogado.value?.body()?.cadastro?.nome.toString(),
-                            mainViewModel.medicoLogado.value?.body()?.cadastro?.sobrenome.toString(),
-                            mainViewModel.medicoLogado.value?.body()?.cadastro?.senha.toString(),
-                            parametro,
-                            mainViewModel.medicoLogado.value?.body()?.crm.toString(),
-                        ), parametro
-                    )
-                    mainViewModel.cadastroVerificado.value?.body()?.email = parametro
-                } else {
-                    Toast.makeText(context, "E-mail Incorreto", Toast.LENGTH_SHORT).show()
-                }*/
-            else {
+            } else {
                 if (parametro.isNotBlank() && parametro.length in 1..255) {
                     mainViewModel.attMedico(
                         MedicoCadastro(
@@ -312,10 +294,11 @@ class DadosPessoaisFragment : Fragment() {
                             mainViewModel.medicoLogado.value?.body()?.crm.toString(),
                         ), mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
                     )
-                    Toast.makeText(context, "Senha atualizada com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT)
+                        .show()
                     mainViewModel.cadastroVerificado.value?.body()?.senha = parametro
                 } else {
-                    Toast.makeText(context, "Senha Invalida", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Senha inválida!", Toast.LENGTH_SHORT).show()
                 }
             }
         }

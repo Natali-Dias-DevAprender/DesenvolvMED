@@ -14,11 +14,10 @@ import com.generation.telasdesenvolvmed.databinding.FragmentLoginBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +44,8 @@ class LoginFragment : Fragment() {
 
     private fun validaLogin(email: String, senha: String): Boolean {
         return (
-                (!email.isNullOrBlank() || email.length in 0..255) &&
-                        (!senha.isNullOrBlank() || senha.length in 3..255)
+                (email.isNotBlank() && email.length in 0..255) &&
+                        (senha.isNotBlank() && senha.length in 3..255)
                 )
     }
 
@@ -57,65 +56,33 @@ class LoginFragment : Fragment() {
 
         if (validaLogin(email, senha)) {
 
-            //mainViewModel.getCadastroMedicoByEmail(email)
-            //mainViewModel.getCadastroPacienteByEmail(email)
             mainViewModel.getCadastroByEmail(email)
-            /*
-            mainViewModel.medicoLogado.observe(viewLifecycleOwner) { response ->
-                if (response.body() != null) {
-                    if (senha == mainViewModel.medicoLogado.value?.body()?.cadastro?.senha.toString()) {
-                        Toast.makeText(context, "Login de medico Bem Sucedido", Toast.LENGTH_SHORT)
-                            .show()
-                        findNavController().navigate(R.id.action_loginFragment_to_postFragment)
-                    } else {
-                        Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
-                if (response.body() != null) {
-                    if (senha == mainViewModel.pacienteLogado.value?.body()?.cadastro?.senha.toString()) {
-                        Toast.makeText(
-                            context,
-                            "Login de paciente Bem Sucedido",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_postFragment)
-                    } else {
-                        Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            */
 
             mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
                 if (response.body() != null) {
                     if (senha == mainViewModel.cadastroVerificado.value?.body()?.senha.toString()) {
                         Toast.makeText(
                             context,
-                            "Login Bem Sucedido",
+                            "Login bem sucedido!",
                             Toast.LENGTH_SHORT
                         ).show()
                         mainViewModel.addLogin(
-                            Login(0,
+                            Login(
+                                0,
                                 mainViewModel.cadastroVerificado.value?.body()!!.email!!,
                                 mainViewModel.cadastroVerificado.value?.body()!!.senha!!
                             )
                         )
-                        mainViewModel.selectLogin.observe(viewLifecycleOwner){
-                            response -> if(response.size > 0){
-                            println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
+                        mainViewModel.selectLogin.observe(viewLifecycleOwner) { responseRoom ->
+                            if (responseRoom.isNotEmpty()) {
                                 findNavController().navigate(R.id.action_loginFragment_to_postFragment)
                             }
                         }
-
                     } else {
-                        Toast.makeText(context, "Senha Incorreta", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "Senha incorreta!", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
-
         } else {
             Toast.makeText(context, "Preencha todos os campos!", Toast.LENGTH_SHORT).show()
         }

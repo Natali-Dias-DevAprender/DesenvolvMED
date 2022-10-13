@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/tela_de_apresentacaoFragment"
-        android:name="com.generation.telasdesenvolvmed.tela_de_apresentacaoFragment"
+        android:name="com.generation.telasdesenvolvmed.TelaDeApresentacaoFragment"
         android:label="fragment_tela_de_apresentacao"
         tools:layout="@layout/fragment_tela_de_apresentacao" >
         <action
@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/cadastroFragment"
-        android:name="com.generation.telasdesenvolvmed.cadastroFragment"
+        android:name="com.generation.telasdesenvolvmed.CadastroFragment"
         android:label="cadastroFragment" >
         <action
             android:id="@+id/action_cadastroFragment_to_postFragment"

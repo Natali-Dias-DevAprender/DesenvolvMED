@@ -13,12 +13,11 @@ class SuporteFragment : Fragment() {
 
     private lateinit var binding: FragmentSuporteBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentSuporteBinding.inflate(layoutInflater, container, false)
 
         binding.botaoVoltarSuporte.setOnClickListener {
@@ -27,5 +26,4 @@ class SuporteFragment : Fragment() {
 
         return binding.root
     }
-
 }

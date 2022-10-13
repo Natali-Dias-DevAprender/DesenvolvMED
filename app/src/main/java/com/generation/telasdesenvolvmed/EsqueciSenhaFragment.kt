@@ -30,6 +30,7 @@ class EsqueciSenhaFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View {
+
         binding = FragmentEsqueciSenhaBinding.inflate(layoutInflater, container, false)
 
         binding.botaoVoltarLogin.setOnClickListener {
@@ -54,7 +55,6 @@ class EsqueciSenhaFragment : Fragment() {
         val confereSenha = binding.textInputSenhaConfirmar.text.toString()
 
         if (mainViewModel.medicoLogado.value?.body()?.crm is String) {
-
             if (senha == confereSenha && cpf == mainViewModel.medicoLogado.value?.body()?.cadastro?.cpf.toString()) {
                 mainViewModel.attMedico(
                     MedicoCadastro(
@@ -101,9 +101,7 @@ class EsqueciSenhaFragment : Fragment() {
 
                 Toast.makeText(context, "CPF ou Senha incorretos", Toast.LENGTH_SHORT).show()
             }
-
         }
-
     }
 
     private fun validaEmail(email: String): Boolean {
@@ -117,7 +115,7 @@ class EsqueciSenhaFragment : Fragment() {
 
         mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
             if (response.body() != null) {
-                Toast.makeText(context, "Cadastro Encontrado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Cadastro encontrado!", Toast.LENGTH_SHORT).show()
                 cadastroIndentificado = true
             }
         }
@@ -126,8 +124,6 @@ class EsqueciSenhaFragment : Fragment() {
             delay(2000)
             if (validaEmail(email) && cadastroIndentificado) {
 
-                //mainViewModel.getCadastroMedicoByEmail(email)
-                //mainViewModel.getCadastroPacienteByEmail(email)
                 Toast.makeText(context, "E-mail Encontrado", Toast.LENGTH_SHORT).show()
                 binding.textInputRecuperarSenhaCPF.visibility = View.VISIBLE
                 binding.textInputRecuperarSenha.visibility = View.VISIBLE
@@ -136,11 +132,10 @@ class EsqueciSenhaFragment : Fragment() {
                 binding.textInputEmailRecuperarSenha.visibility = View.INVISIBLE
                 binding.botaoVerificarEmail.visibility = View.INVISIBLE
                 binding.tituloRecuperarSenha.visibility = View.VISIBLE
+
             } else {
                 Toast.makeText(context, "Verifique o e-mail digitado", Toast.LENGTH_SHORT).show()
             }
         }
-
     }
-
 }

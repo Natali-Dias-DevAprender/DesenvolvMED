@@ -10,7 +10,9 @@ import com.generation.telasdesenvolvmed.databinding.FragmentInicialBinding
 
 
 class InicialFragment : Fragment() {
+
     private lateinit var binding: FragmentInicialBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -19,17 +21,15 @@ class InicialFragment : Fragment() {
 
         binding.imageView.alpha = 0f
 
-        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction{
+        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction {
             activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
+
         }
 
-        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction{
+        binding.imageView.animate().setDuration(3000).alpha(1f).withEndAction {
             findNavController().navigate(R.id.action_inicialFragment_to_tela_de_apresentacaoFragment)
         }
 
         return binding.root
     }
-
-
-
 }
