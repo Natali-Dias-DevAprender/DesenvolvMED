@@ -5,8 +5,6 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.generation.telasdesenvolvmed.api.Repository
 import com.generation.telasdesenvolvmed.data.Login
-import com.generation.telasdesenvolvmed.data.LoginDatabase
-//import com.generation.telasdesenvolvmed.data.LoginRepository
 import com.generation.telasdesenvolvmed.model.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -14,7 +12,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
 
-//private val roomRepository: LoginRepository,
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val repository: Repository,
@@ -158,29 +155,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getCadastroPacienteByEmail(email: String) {
-        viewModelScope.launch {
-            try {
-                val response = repository.getCadastroPacienteByEmail(email)
-                pacienteLogado.value = response
-            } catch (e: Exception) {
-                Log.d("Erro", e.message.toString())
-            }
-        }
-    }
-
-
-    fun getCadastroMedicoByEmail(email: String) {
-        viewModelScope.launch {
-            try {
-                val response = repository.getCadastroMedicoByEmail(email)
-                medicoLogado.value = response
-            } catch (e: Exception) {
-                Log.d("Erro", e.message.toString())
-            }
-        }
-    }
-
     fun getCadastroByEmail(email: String) {
         viewModelScope.launch {
             try {
@@ -207,7 +181,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getCadastroAtualizaEmail(email: String){
+    fun getCadastroAtualizaEmail(email: String) {
         viewModelScope.launch {
             try {
                 val response = repository.getCadastroByEmail(email)
@@ -230,23 +204,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updatePostagem(postagem: Postagem) {
-        viewModelScope.launch {
-            try {
-
-                repository.updatePostagem(postagem)
-                listPostagem()
-
-            } catch (e: Exception) {
-                Log.d("Erro", e.message.toString())
-            }
-        }
-    }
-
-    fun clear() {
-        LoginDatabase.clearTables()
-    }
-
     fun deletaPostagem(id: Long) {
         viewModelScope.launch {
             try {
@@ -258,22 +215,22 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun updateComentario(comentario: Comentario){
+    fun updateComentario(comentario: Comentario) {
         viewModelScope.launch {
-            try{
+            try {
                 repository.updateComentario(comentario)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("Erro", e.message.toString())
             }
         }
     }
 
-    fun deletaComentario(id: Long, idPostagem: Long){
+    fun deletaComentario(id: Long, idPostagem: Long) {
         viewModelScope.launch {
-            try{
+            try {
                 repository.deletaComentario(id)
                 listComentario(idPostagem)
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("Erro", e.message.toString())
             }
         }

@@ -22,13 +22,12 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
 
     private lateinit var binding: FragmentComentariosBinding
     private val mainViewModel: MainViewModel by activityViewModels()
-    //private var postagemSelecionada: Postagem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentComentariosBinding.inflate(layoutInflater, container, false)
 
         mainViewModel.listComentario(mainViewModel.postagemSelecionada!!.id)
@@ -74,7 +73,6 @@ class ComentariosFragment : Fragment(), ComentarioClickListener {
                 mainViewModel.addComentario(comentario, mainViewModel.postagemSelecionada!!.id)
                 Toast.makeText(context, "Comentário realizado!", Toast.LENGTH_SHORT).show()
                 binding.escrevaComentarioInput.text?.clear()
-                //findNavController().navigate(R.id.action_comentariosFragment_to_postFragment)
             }
         } else {
             Toast.makeText(context, "Comentário não pode estar em branco!", Toast.LENGTH_SHORT)

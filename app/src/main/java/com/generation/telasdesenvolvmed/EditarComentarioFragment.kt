@@ -15,57 +15,52 @@ import java.time.LocalDateTime
 
 class EditarComentarioFragment : Fragment() {
 
-	private lateinit var binding : FragmentEditarComentarioBinding
-	private val mainViewModel : MainViewModel by activityViewModels()
-	private var postagemSelecionada: Postagem? = null
-	var comentarioSelecionado: Comentario? = null
+    private lateinit var binding: FragmentEditarComentarioBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
+    var comentarioSelecionado: Comentario? = null
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		binding = FragmentEditarComentarioBinding.inflate(layoutInflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentEditarComentarioBinding.inflate(layoutInflater, container, false)
 
-		comentarioSelecionado = mainViewModel.comentarioSelecionado
+        comentarioSelecionado = mainViewModel.comentarioSelecionado
 
-		binding.imageButtonComentar.setOnClickListener {
-			inserirNoBanco()
-		}
+        binding.imageButtonComentar.setOnClickListener {
+            inserirNoBanco()
+        }
 
-		return binding.root
-	}
+        return binding.root
+    }
 
-	private fun validarCampos(conteudo: String): Boolean {
-		return (
-				(conteudo.isNotBlank() && conteudo.length in 10..300)
-				)
-	}
+    private fun validarCampos(conteudo: String): Boolean {
+        return (
+                (conteudo.isNotBlank() && conteudo.length in 10..300)
+                )
+    }
 
-	private fun inserirNoBanco() {
+    private fun inserirNoBanco() {
 
-		val conteudo = binding.escrevaComentarioInput.text.toString()
-		val data = LocalDateTime.now().toString()
-		val postagem = mainViewModel.postagemSelecionada!!
-		val cadastro = mainViewModel.cadastroVerificado.value?.body()
+        val conteudo = binding.escrevaComentarioInput.text.toString()
+        val data = LocalDateTime.now().toString()
+        val postagem = mainViewModel.postagemSelecionada!!
+        val cadastro = mainViewModel.cadastroVerificado.value?.body()
 
-		if (validarCampos(conteudo)) {
-			val salvar : String
-			if (comentarioSelecionado != null) {
-				salvar = "Comentário editado!"
-				val comentario = Comentario(comentarioSelecionado?.id!!, conteudo, data, postagem, cadastro!!)
-				mainViewModel.updateComentario(comentario)
-				Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
-				findNavController().navigate(R.id.action_editarComentarioFragment_to_comentariosFragment)
-			} else {
-				salvar = "Comentário não pode estar em branco!"
-				Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
-			}
+        if (validarCampos(conteudo)) {
+            val salvar: String
+            if (comentarioSelecionado != null) {
+                salvar = "Comentário editado!"
+                val comentario =
+                    Comentario(comentarioSelecionado?.id!!, conteudo, data, postagem, cadastro!!)
+                mainViewModel.updateComentario(comentario)
+                Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_editarComentarioFragment_to_comentariosFragment)
+            } else {
+                salvar = "Comentário não pode estar em branco!"
+                Toast.makeText(context, salvar, Toast.LENGTH_SHORT).show()
+            }
 
-		}
-
-
-	}
-
-
+        }
+    }
 }

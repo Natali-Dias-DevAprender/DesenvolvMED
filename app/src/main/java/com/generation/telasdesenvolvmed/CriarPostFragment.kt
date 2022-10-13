@@ -19,107 +19,97 @@ import java.time.LocalDateTime
 
 class CriarPostFragment : Fragment() {
 
-	private lateinit var binding: FragmentCriarPostBinding
-	private val mainViewModel: MainViewModel by activityViewModels()
-	private var temaSelecionado = 0L
-	private var postagemSelecionada: Postagem? = null
+    private lateinit var binding: FragmentCriarPostBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
+    private var temaSelecionado = 0L
+    private var postagemSelecionada: Postagem? = null
 
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		binding = FragmentCriarPostBinding.inflate(layoutInflater, container, false)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-		carregarDados()
+        binding = FragmentCriarPostBinding.inflate(layoutInflater, container, false)
 
-		mainViewModel.listTema()
+        mainViewModel.listTema()
 
-		mainViewModel.myTemaResponse.observe(viewLifecycleOwner) { response ->
-			Log.d("Requisicao", response.body().toString())
-			spinnerTema(response.body()!!)
-		}
+        mainViewModel.myTemaResponse.observe(viewLifecycleOwner) { response ->
+            Log.d("Requisicao", response.body().toString())
+            spinnerTema(response.body()!!)
+        }
 
-		binding.botaoPublicar.setOnClickListener {
-			inserirNoBanco()
-		}
+        binding.botaoPublicar.setOnClickListener {
+            inserirNoBanco()
+        }
 
-		binding.botaoVoltarFeed.setOnClickListener {
-			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
-		}
+        binding.botaoVoltarFeed.setOnClickListener {
+            findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
+        }
 
-		return binding.root
-	}
+        return binding.root
+    }
 
-	private fun spinnerTema(listaTema: List<Tema>) {
+    private fun spinnerTema(listaTema: List<Tema>) {
 
-		if (listaTema.isEmpty())
-			throw IllegalArgumentException("Lista vazia!")
+        if (listaTema.isEmpty())
+            throw IllegalArgumentException("Lista vazia!")
 
-		binding.selecTemas.adapter =
-			ArrayAdapter(
-				requireContext(),
-				androidx.transition.R.layout.support_simple_spinner_dropdown_item,
-				listaTema
-			)
+        binding.selecTemas.adapter =
+            ArrayAdapter(
+                requireContext(),
+                androidx.transition.R.layout.support_simple_spinner_dropdown_item,
+                listaTema
+            )
 
-		binding.selecTemas.onItemSelectedListener =
-			object : AdapterView.OnItemSelectedListener {
-				override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-					val selected = binding.selecTemas.selectedItem as Tema
+        binding.selecTemas.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                    val selected = binding.selecTemas.selectedItem as Tema
 
-					temaSelecionado = selected.id
-				}
+                    temaSelecionado = selected.id
+                }
 
-				override fun onNothingSelected(p0: AdapterView<*>?) {
+                override fun onNothingSelected(p0: AdapterView<*>?) {
 
-				}
-			}
-	}
+                }
+            }
+    }
 
-	private fun validarCampos(titulo: String, conteudo: String, anexo: String): Boolean {
-		return (
-				(titulo.isNotBlank() && titulo.length in 20..255) &&
-						(conteudo.isNotBlank() && conteudo.length in 20..5000) &&
-						(anexo.isNotBlank() && anexo.length in 10..500)
-				)
-	}
+    private fun validarCampos(titulo: String, conteudo: String, anexo: String): Boolean {
+        return (
+                (titulo.isNotBlank() && titulo.length in 20..255) &&
+                        (conteudo.isNotBlank() && conteudo.length in 20..5000) &&
+                        (anexo.isNotBlank() && anexo.length in 10..500)
+                )
+    }
 
-	private fun inserirNoBanco() {
+    private fun inserirNoBanco() {
 
-		val titulo = binding.tituloText.text.toString()
-		val conteudo = binding.postText.text.toString()
-		val anexo = binding.textAnexo.text.toString()
-		val medico = Medico(
-			mainViewModel.medicoLogado.value?.body()?.id!!.toLong(), null,
-			null, null
-		)
-		val dataPostagem = LocalDateTime.now().toString()
-		val tema = Tema(temaSelecionado, null, null)
+        val titulo = binding.tituloText.text.toString()
+        val conteudo = binding.postText.text.toString()
+        val anexo = binding.textAnexo.text.toString()
+        val medico = Medico(
+            mainViewModel.medicoLogado.value?.body()?.id!!.toLong(), null,
+            null, null
+        )
+        val dataPostagem = LocalDateTime.now().toString()
+        val tema = Tema(temaSelecionado, null, null)
 
-		if (validarCampos(titulo, conteudo, anexo)) {
+        if (validarCampos(titulo, conteudo, anexo)) {
 
-			if (postagemSelecionada == null) {
-				val postagem = Postagem(
-					0, titulo, conteudo, anexo, dataPostagem, tema, medico
-				)
-				mainViewModel.addPostagem(postagem)
-			}
+            if (postagemSelecionada == null) {
+                val postagem = Postagem(
+                    0, titulo, conteudo, anexo, dataPostagem, tema, medico
+                )
+                mainViewModel.addPostagem(postagem)
+            }
 
-			Toast.makeText(context, "Postagem realizada com sucesso!", Toast.LENGTH_LONG).show()
-			findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
+            Toast.makeText(context, "Postagem realizada com sucesso!", Toast.LENGTH_LONG).show()
+            findNavController().navigate(R.id.action_criarPostFragment_to_postFragment)
 
-		} else {
-			Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
-		}
-	}
+        } else {
+            Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+        }
+    }
 
-	private fun carregarDados() {
-		postagemSelecionada = mainViewModel.postagemSelecionada
-		if (postagemSelecionada != null) {
-			binding.tituloText.setText(postagemSelecionada?.titulo)
-			binding.postText.setText(postagemSelecionada?.descricao)
-			binding.textAnexo.setText(postagemSelecionada?.anexo)
-		}
-	}
 }

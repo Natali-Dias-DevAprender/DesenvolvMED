@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class PerfilFragment : Fragment() {
 
     private lateinit var binding: FragmentPerfilBinding
-    private val mainViewModel : MainViewModel by activityViewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +33,8 @@ class PerfilFragment : Fragment() {
         }
 
         getDados()
+
+        mainViewModel.postagemSelecionada = null
 
         binding.botaoSobre.setOnClickListener {
             findNavController().navigate(R.id.action_perfilFragment_to_sobreFragment)
@@ -57,47 +59,38 @@ class PerfilFragment : Fragment() {
         binding.buttonLogout.setOnClickListener {
             mainViewModel.nukeLogin()
 
-            mainViewModel.selectLogin.observe(viewLifecycleOwner){
-                response -> if(response.size == 0){
-                println("O tamanho do banco de dados local eh: "+mainViewModel.selectLogin.value?.size!!)
-                mainViewModel.cadastroVerificado.value?.body()?.email = ""
-                mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
-                mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
+            mainViewModel.selectLogin.observe(viewLifecycleOwner) { response ->
+                if (response.size == 0) {
 
-                mainViewModel.getCadastroByEmail("")
-                findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
-                /*
-                mainViewModel.viewModelScope.launch {
-                    delay(3000)
-                    mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
-                            response -> if (response.body() == null) {
-                        findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
-                    }
-                    }
-                }*/
+                    mainViewModel.cadastroVerificado.value?.body()?.email = ""
+                    mainViewModel.medicoLogado.value?.body()?.cadastro?.email = ""
+                    mainViewModel.pacienteLogado.value?.body()?.cadastro?.email = ""
+
+                    mainViewModel.getCadastroByEmail("")
+                    findNavController().navigate(R.id.action_perfilFragment_to_inicialFragment)
+
                 }
             }
-
-
         }
-
-
         return binding.root
     }
 
-    private fun getDados(){
-        binding.textPerfilNome.text = mainViewModel.cadastroVerificado.value?.body()?.nome.toString() + " " + mainViewModel.cadastroVerificado.value?.body()?.sobrenome.toString()
+    private fun getDados() {
+        binding.textPerfilNome.text =
+            mainViewModel.cadastroVerificado.value?.body()?.nome.toString() + " " + mainViewModel.cadastroVerificado.value?.body()?.sobrenome.toString()
         binding.textPerfilCpf.text = mainViewModel.cadastroVerificado.value?.body()?.cpf.toString()
-        binding.textPerfilEmail.text = mainViewModel.cadastroVerificado.value?.body()?.email.toString()
+        binding.textPerfilEmail.text =
+            mainViewModel.cadastroVerificado.value?.body()?.email.toString()
 
-        if(mainViewModel.medicoLogado.value?.body()?.crm == null){
+        if (mainViewModel.medicoLogado.value?.body()?.crm == null) {
             binding.textExclusivo.text = "Convenio: "
-            binding.textPerfilExclusivo.text = mainViewModel.pacienteLogado.value?.body()?.convenio.toString()
-        } else{
+            binding.textPerfilExclusivo.text =
+                mainViewModel.pacienteLogado.value?.body()?.convenio.toString()
+        } else {
             binding.textExclusivo.text = "CRM: "
-            binding.textPerfilExclusivo.text = mainViewModel.medicoLogado.value?.body()?.crm.toString()
+            binding.textPerfilExclusivo.text =
+                mainViewModel.medicoLogado.value?.body()?.crm.toString()
         }
 
     }
-
 }

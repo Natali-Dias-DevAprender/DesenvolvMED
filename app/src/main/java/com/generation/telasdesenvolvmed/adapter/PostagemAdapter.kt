@@ -12,117 +12,83 @@ import com.generation.telasdesenvolvmed.R
 import com.generation.telasdesenvolvmed.databinding.CardLayoutBinding
 import com.generation.telasdesenvolvmed.model.Postagem
 
-class PostagemAdapter (
-	private val postagemClickListener: PostagemClickListener,
-	val mainViewModel: MainViewModel,
-	val context: Context
-		) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
+class PostagemAdapter(
+    private val postagemClickListener: PostagemClickListener,
+    val mainViewModel: MainViewModel,
+    val context: Context
+) : RecyclerView.Adapter<PostagemAdapter.PostagemViewHolder>() {
 
-	private var listPostagem = emptyList<Postagem>()
+    private var listPostagem = emptyList<Postagem>()
 
-	class PostagemViewHolder(val binding: CardLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+    class PostagemViewHolder(val binding: CardLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
-	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostagemViewHolder {
-		return PostagemViewHolder(
-			CardLayoutBinding.inflate(
-				LayoutInflater.from(parent.context), parent, false
-			)
-		)
-	}
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostagemViewHolder {
+        return PostagemViewHolder(
+            CardLayoutBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
+    }
 
-	override fun onBindViewHolder(holder: PostagemViewHolder, position: Int) {
-		val postagem = listPostagem[position]
+    override fun onBindViewHolder(holder: PostagemViewHolder, position: Int) {
+        val postagem = listPostagem[position]
 
-		holder.binding.temaPost.text = postagem.tema?.tema
-		holder.binding.nomeMedico.text = postagem.medico?.cadastro!!.nome
-		holder.binding.tituloPost.text = postagem.titulo
-		holder.binding.conteudoPost.text = postagem.descricao
-		//holder.binding.linkAnexo.text = postagem.anexo
+        holder.binding.temaPost.text = postagem.tema?.tema
+        holder.binding.nomeMedico.text = postagem.medico?.cadastro!!.nome
+        holder.binding.tituloPost.text = postagem.titulo
+        holder.binding.conteudoPost.text = postagem.descricao
 
-		//Configurando o glide
-		/*
-		Context
-		Linkaa
-		Placeholder
-		ImageView
-		 */
-		//android.R.drawable.ic_menu_report_image
-		Glide
-			.with(context)
-			.load(postagem.anexo)
-			.placeholder(R.drawable.bg_text_input)
-			.into(holder.binding.imagePostagem)
+        Glide
+            .with(context)
+            .load(postagem.anexo)
+            .placeholder(R.drawable.bg_text_input)
+            .into(holder.binding.imagePostagem)
 
-	/*
-		val idProcurado = mainViewModel.medicoLogado.value?.body()?.id?
+        val crmProcurado = mainViewModel.medicoLogado.value?.body()?.crm.toString()
 
+        if (crmProcurado != postagem.medico.crm) {
+            holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+            holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+        } else {
+            holder.binding.botaoEditarPost.visibility = View.VISIBLE
+            holder.binding.botaoDeletarPost.visibility = View.VISIBLE
+        }
 
-		if(idProcurado != postagem.medico.cadastro.id) {
-			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
-		} else {
-			holder.binding.botaoEditarPost.visibility = View.VISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
-		}
-		*/
-		/*
-		val emailProcurado = mainViewModel.medicoLogado.value?.body()?.cadastro?.email.toString()
+        holder.binding.buttonComentarios.setOnClickListener {
+            postagemClickListener.onPostagemParaComentarioClickListener(postagem)
+        }
 
-		if(emailProcurado != postagem.medico.cadastro.email) {
-			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
-		} else {
-			holder.binding.botaoEditarPost.visibility = View.VISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
-		}*/
+        holder.binding.botaoEditarPost.setOnClickListener {
+            postagemClickListener.onPostagemClickListener(postagem)
+        }
 
-		val crmProcurado = mainViewModel.medicoLogado.value?.body()?.crm.toString()
+        if (mainViewModel.pacienteLogado.value?.body()?.toString() != null) {
+            holder.binding.botaoEditarPost.visibility = View.INVISIBLE
+            holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
+        }
 
-		if(crmProcurado != postagem.medico.crm) {
-			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
-		} else {
-			holder.binding.botaoEditarPost.visibility = View.VISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.VISIBLE
-		}
+        holder.binding.botaoDeletarPost.setOnClickListener {
+            showAlertDialog(postagem.id)
+        }
+    }
 
-		holder.binding.buttonComentarios.setOnClickListener {
-			postagemClickListener.onPostagemParaComentarioClickListener(postagem)
-		}
+    override fun getItemCount(): Int {
+        return listPostagem.size
+    }
 
-		holder.binding.botaoEditarPost.setOnClickListener {
-			postagemClickListener.onPostagemClickListener(postagem)
-		}
+    fun setList(list: List<Postagem>) {
+        listPostagem = list.sortedByDescending { it.id }
+        notifyDataSetChanged()
+    }
 
-		if(mainViewModel.pacienteLogado.value?.body()?.toString() != null) {
-			holder.binding.botaoEditarPost.visibility = View.INVISIBLE
-			holder.binding.botaoDeletarPost.visibility = View.INVISIBLE
-		}
-
-		holder.binding.botaoDeletarPost.setOnClickListener {
-			showAlertDialog(postagem.id)
-		}
-	}
-
-	override fun getItemCount(): Int {
-		return listPostagem.size
-	}
-
-	fun setList(list: List<Postagem>) {
-		listPostagem = list.sortedByDescending { it.id }
-		notifyDataSetChanged()
-	}
-
-	private fun showAlertDialog(id: Long){
-		AlertDialog.Builder(context)
-			.setTitle("Deletar postagem")
-			.setMessage("Deseja realmente excluir a postagem?")
-			.setPositiveButton("Sim"){
-				_,_ -> mainViewModel.deletaPostagem(id)
-			}
-			.setNegativeButton("Não"){
-				_,_ ->
-			}.show()
-	}
-
+    private fun showAlertDialog(id: Long) {
+        AlertDialog.Builder(context)
+            .setTitle("Deletar postagem")
+            .setMessage("Deseja realmente excluir a postagem?")
+            .setPositiveButton("Sim") { _, _ ->
+                mainViewModel.deletaPostagem(id)
+            }
+            .setNegativeButton("Não") { _, _ ->
+            }.show()
+    }
 }

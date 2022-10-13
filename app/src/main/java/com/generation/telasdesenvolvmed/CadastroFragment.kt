@@ -17,7 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class cadastroFragment : Fragment() {
+class CadastroFragment : Fragment() {
 
     private lateinit var binding: FragmentCadastroBinding
     private val mainViewModel: MainViewModel by activityViewModels()
@@ -43,7 +43,7 @@ class cadastroFragment : Fragment() {
         binding.radioPaciente.setOnClickListener {
             binding.inputExclusivo.text?.clear()
             binding.inputExclusivoLayout.visibility = View.VISIBLE
-            binding.inputExclusivo.hint = "Convenio (Opcional)"
+            binding.inputExclusivo.hint = "Convênio (opcional)"
             binding.buttonCadastrar.visibility = View.VISIBLE
         }
 
@@ -81,60 +81,68 @@ class cadastroFragment : Fragment() {
         val nome = binding.tilNome.text.toString()
         val cpf = binding.tilCpf.text.toString()
         val sobrenome = binding.tilSobrenome.text.toString()
-        var email = binding.tilEmail.text.toString()
+        val email = binding.tilEmail.text.toString()
         val senha = binding.tilSenha.text.toString()
         val crm = binding.inputExclusivo.text.toString()
         val confirmaSenha = binding.tilConfirmaSenha.text.toString()
 
-
         mainViewModel.getCadastro(email)
-        var emailNovo = true
+        var emailNovo = false
 
         mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
             if (response.body() != null) {
-                emailNovo = false
-            }
-        }
-
-        mainViewModel.viewModelScope.launch {
-            delay(2000)
-            if (validarCampos(
-                    nome,
-                    cpf,
-                    sobrenome,
-                    email,
-                    senha,
-                    crm
-                ) && emailNovo && senha == confirmaSenha
-            ) {
-                mainViewModel.addMedico(
-                    MedicoCadastro(0, cpf, nome, sobrenome, senha, email, crm),
-                    email
-                )
-
-                //mainViewModel.viewModelScope.launch{
-                    //delay(2000)
-                    mainViewModel.getCadastroByEmail(email)
-                //}
-                mainViewModel.addLogin(Login(0, email, senha))
-                mainViewModel.medicoLogado.observe(viewLifecycleOwner){
-                    if(mainViewModel.medicoLogado.value?.body()?.crm != null){
-                        findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
-                    }
+                if (!emailNovo) {
+                    Toast.makeText(context, "E-mail inválido", Toast.LENGTH_SHORT).show()
                 }
 
-            } else if (!emailNovo) {
-                emailNovo = true
-                mainViewModel.getCadastro("")
-                Toast.makeText(context, "E-mail já em uso...", Toast.LENGTH_SHORT).show()
+
             } else {
-                Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+                emailNovo = true
+
+                if (validarCampos(
+                        nome,
+                        cpf,
+                        sobrenome,
+                        email,
+                        senha,
+                        crm
+                    ) && emailNovo && senha == confirmaSenha
+                ) {
+                    mainViewModel.addMedico(
+                        MedicoCadastro(0, cpf, nome, sobrenome, senha, email, crm),
+                        email
+                    )
+                    mainViewModel.getCadastroByEmail(email)
+                    mainViewModel.addLogin(Login(0, email, senha))
+                    mainViewModel.medicoLogado.observe(viewLifecycleOwner) { responseMedico ->
+                        if (responseMedico != null) {
+                            mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) {
+                                if (mainViewModel.cadastroVerificado.value?.body()?.email == email) {
+                                    Toast.makeText(
+                                        context,
+                                        "Cadastro bem sucedido!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
-
     }
 
-    private fun validarCamposPaciente(nome: String, cpf: String, sobrenome: String, email: String, senha: String, convenio: String): Boolean {
+    private fun validarCamposPaciente(
+        nome: String,
+        cpf: String,
+        sobrenome: String,
+        email: String,
+        senha: String,
+        convenio: String
+    ): Boolean {
         return (
                 (nome.isNotBlank() && nome.length in 1..255) &&
                         (cpf.isNotBlank() && cpf.length == 11) &&
@@ -149,57 +157,56 @@ class cadastroFragment : Fragment() {
         val nome = binding.tilNome.text.toString()
         val cpf = binding.tilCpf.text.toString()
         val sobrenome = binding.tilSobrenome.text.toString()
-        var email = binding.tilEmail.text.toString()
+        val email = binding.tilEmail.text.toString()
         val senha = binding.tilSenha.text.toString()
         val convenio = binding.inputExclusivo.text.toString()
         val confirmaSenha = binding.tilConfirmaSenha.text.toString()
 
-
         mainViewModel.getCadastro(email)
-        var emailNovo = true
+        var emailNovo = false
 
         mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
             if (response.body() != null) {
-                emailNovo = false
-            }
-        }
-
-        mainViewModel.viewModelScope.launch {
-            delay(2000)
-            if (validarCamposPaciente(
-                    nome,
-                    cpf,
-                    sobrenome,
-                    email,
-                    senha,
-                    convenio
-                ) && emailNovo && senha == confirmaSenha
-            ) {
-                mainViewModel.addPaciente(
-                    PacienteCadastro(0, cpf, nome, sobrenome, senha, email, convenio),
-                    email
-                )
-                //mainViewModel.viewModelScope.launch{
-                    //delay(2000)
-                    mainViewModel.getCadastroByEmail(email)
-                    //delay(1000)
-                //}
-                mainViewModel.addLogin(Login(0, email, senha))
-                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
-                    if(mainViewModel.cadastroVerificado.value?.body()?.cpf != null){
-                        findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
-                    }
+                if (!emailNovo) {
+                    Toast.makeText(context, "E-mail inválido", Toast.LENGTH_SHORT).show()
                 }
-                //findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
-            } else if (!emailNovo) {
-                emailNovo = true
-                mainViewModel.getCadastro("")
-                Toast.makeText(context, "E-mail já em uso...", Toast.LENGTH_SHORT).show()
+
             } else {
-                Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+                emailNovo = true
+
+                if (validarCamposPaciente(
+                        nome,
+                        cpf,
+                        sobrenome,
+                        email,
+                        senha,
+                        convenio
+                    ) && emailNovo && senha == confirmaSenha
+                ) {
+                    mainViewModel.addPaciente(
+                        PacienteCadastro(0, cpf, nome, sobrenome, senha, email, convenio),
+                        email
+                    )
+                    mainViewModel.getCadastroByEmail(email)
+                    mainViewModel.addLogin(Login(0, email, senha))
+                    mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { responsePaciente ->
+                        if (responsePaciente != null) {
+                            mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) {
+                                if (mainViewModel.cadastroVerificado.value?.body()?.email == email) {
+                                    Toast.makeText(
+                                        context,
+                                        "Cadastro bem sucedido!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    findNavController().navigate(R.id.action_cadastroFragment_to_postFragment)
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    Toast.makeText(context, "Verifique os campos!", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
-
-
 }

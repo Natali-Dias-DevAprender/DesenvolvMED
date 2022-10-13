@@ -18,7 +18,7 @@ class SobreFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         binding = FragmentSobreBinding.inflate(layoutInflater, container, false)
 
         binding.botaoVoltarSobre.setOnClickListener {
@@ -27,5 +27,4 @@ class SobreFragment : Fragment() {
 
         return binding.root
     }
-
 }

@@ -16,62 +16,60 @@ import com.generation.telasdesenvolvmed.model.*
 
 class PostFragment : Fragment(), PostagemClickListener {
 
-	private lateinit var binding: FragmentPostBinding
+    private lateinit var binding: FragmentPostBinding
+    private val mainViewModel: MainViewModel by activityViewModels()
 
-	private val mainViewModel: MainViewModel by activityViewModels()
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
 
-	): View? {
-		// Inflate the layout for this fragment
+    ): View? {
 
-		binding = FragmentPostBinding.inflate(layoutInflater, container, false)
+        binding = FragmentPostBinding.inflate(layoutInflater, container, false)
 
+        mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
+            if (response.body() != null) {
+                binding.addPostButton.visibility = View.INVISIBLE
+            }
+        }
 
-		mainViewModel.pacienteLogado.observe(viewLifecycleOwner) { response ->
-			if (response.body() != null) {
-				binding.addPostButton.visibility = View.INVISIBLE
-			}
-		}
+        mainViewModel.listPostagem()
 
-		mainViewModel.listPostagem()
+        binding.swipeToRefresh.setOnRefreshListener {
+            mainViewModel.listPostagem()
+        }
 
-		binding.swipeToRefresh.setOnRefreshListener {
-			mainViewModel.listPostagem()
-		}
+        val postagemAdapter = PostagemAdapter(this, mainViewModel, requireContext())
+        binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
+        binding.recyclerPostagem.adapter = postagemAdapter
+        binding.recyclerPostagem.setHasFixedSize(true)
 
-		val postagemAdapter = PostagemAdapter(this, mainViewModel, requireContext())
-		binding.recyclerPostagem.layoutManager = LinearLayoutManager(context)
-		binding.recyclerPostagem.adapter = postagemAdapter
-		binding.recyclerPostagem.setHasFixedSize(true)
+        binding.addPostButton.setOnClickListener {
+            mainViewModel.postagemSelecionada = null
+            findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
+        }
 
-		binding.addPostButton.setOnClickListener {
-			mainViewModel.postagemSelecionada = null
-			findNavController().navigate(R.id.action_postFragment_to_criarPostFragment)
-		}
+        mainViewModel.myPostagemResponse.observe(viewLifecycleOwner) { response ->
+            if (response.body() != null) {
+                postagemAdapter.setList(response.body()!!)
+                binding.swipeToRefresh.isRefreshing = false
+            }
+        }
 
-		mainViewModel.myPostagemResponse.observe(viewLifecycleOwner) { response ->
-			if (response.body() != null) {
-				postagemAdapter.setList(response.body()!!)
-				binding.swipeToRefresh.isRefreshing = false
-			}
-		}
+        binding.perfilButton.setOnClickListener {
+            findNavController().navigate(R.id.action_postFragment_to_perfilFragment)
+        }
 
-		binding.perfilButton.setOnClickListener{
-			findNavController().navigate(R.id.action_postFragment_to_perfilFragment)
-		}
+        return binding.root
+    }
 
-		return binding.root
-	}
+    override fun onPostagemClickListener(postagem: Postagem) {
+        mainViewModel.postagemSelecionada = postagem
+        findNavController().navigate(R.id.action_postFragment_to_editPostFragment)
+    }
 
-	override fun onPostagemClickListener(postagem: Postagem) {
-		mainViewModel.postagemSelecionada = postagem
-		findNavController().navigate(R.id.action_postFragment_to_editPostFragment)
-	}
-
-	override fun onPostagemParaComentarioClickListener(postagem: Postagem) {
-		mainViewModel.postagemSelecionada = postagem
-		findNavController().navigate(R.id.action_postFragment_to_comentariosFragment)
-	}
+    override fun onPostagemParaComentarioClickListener(postagem: Postagem) {
+        mainViewModel.postagemSelecionada = postagem
+        findNavController().navigate(R.id.action_postFragment_to_comentariosFragment)
+    }
 }
