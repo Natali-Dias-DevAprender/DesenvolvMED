@@ -34,7 +34,13 @@ class EsqueciSenhaFragment : Fragment() {
         binding = FragmentEsqueciSenhaBinding.inflate(layoutInflater, container, false)
 
         binding.botaoVoltarLogin.setOnClickListener {
-            findNavController().navigate(R.id.action_esqueciSenhaFragment_to_loginFragment)
+            mainViewModel.cadastroVerificado.value?.body()?.email = null
+            mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                response -> if(response.body()?.email == null){
+                    findNavController().navigate(R.id.action_esqueciSenhaFragment_to_loginFragment)
+                }
+            }
+
         }
 
         binding.botaoVerificarEmail.setOnClickListener {
@@ -98,7 +104,6 @@ class EsqueciSenhaFragment : Fragment() {
                 findNavController().navigate(R.id.action_esqueciSenhaFragment_to_loginFragment)
 
             } else {
-
                 Toast.makeText(context, "CPF ou Senha incorretos", Toast.LENGTH_SHORT).show()
             }
         }
@@ -111,30 +116,33 @@ class EsqueciSenhaFragment : Fragment() {
     private fun verificaEmail() {
         val email = binding.textInputSenhaEmail.text.toString()
         mainViewModel.getCadastroByEmail(email)
-        var cadastroIndentificado = false
 
         mainViewModel.cadastroVerificado.observe(viewLifecycleOwner) { response ->
-            if (response.body() != null) {
-                Toast.makeText(context, "Cadastro encontrado!", Toast.LENGTH_SHORT).show()
-                cadastroIndentificado = true
-            }
-        }
+            if (response.body()?.email.toString() == email) {
 
-        mainViewModel.viewModelScope.launch {
-            delay(2000)
-            if (validaEmail(email) && cadastroIndentificado) {
+                mainViewModel.cadastroVerificado.observe(viewLifecycleOwner){
+                    if(email == mainViewModel.cadastroVerificado.value?.body()?.email.toString()){
 
-                Toast.makeText(context, "E-mail Encontrado", Toast.LENGTH_SHORT).show()
-                binding.textInputRecuperarSenhaCPF.visibility = View.VISIBLE
-                binding.textInputRecuperarSenha.visibility = View.VISIBLE
-                binding.textInputRecuperarSenhaConfirmarSenha.visibility = View.VISIBLE
-                binding.botaoAlterarSenha.visibility = View.VISIBLE
-                binding.textInputEmailRecuperarSenha.visibility = View.INVISIBLE
-                binding.botaoVerificarEmail.visibility = View.INVISIBLE
-                binding.tituloRecuperarSenha.visibility = View.VISIBLE
+                        if (validaEmail(email)) {
+                            Toast.makeText(context, "E-mail Encontrado", Toast.LENGTH_SHORT).show()
+                            binding.textInputRecuperarSenhaCPF.visibility = View.VISIBLE
+                            binding.textInputRecuperarSenha.visibility = View.VISIBLE
+                            binding.textInputRecuperarSenhaConfirmarSenha.visibility = View.VISIBLE
+                            binding.botaoAlterarSenha.visibility = View.VISIBLE
+                            binding.textInputEmailRecuperarSenha.visibility = View.INVISIBLE
+                            binding.botaoVerificarEmail.visibility = View.INVISIBLE
+                            binding.tituloRecuperarSenha.visibility = View.VISIBLE
 
-            } else {
-                Toast.makeText(context, "Verifique o e-mail digitado", Toast.LENGTH_SHORT).show()
+                        } else{
+                                Toast.makeText(context, "E-mail Inválido", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+            } else{
+                if(mainViewModel.cadastroVerificado.value?.body()?.email != null){
+                    Toast.makeText(context, "Verifique o e-mail digitado", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
